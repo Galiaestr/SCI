@@ -134,12 +134,22 @@ def registroCurso(id):
     return render_template("cursosPub/registro.html", form=form, id=id)
 
 
-# 📋 Panel administrativo
 @cursos_admin.route('/cursos')
 @login_required
 def cursos_panel():
+    page = request.args.get('page', 1, type=int)
+    per_page = 5
+    offset = (page - 1) * per_page
+
     conn = get_db_connection()
     cursor = conn.cursor()
+
+    # Total de cursos para calcular páginas
+    cursor.execute("SELECT COUNT(*) FROM cursos WHERE activo = TRUE")
+    total = cursor.fetchone()[0]
+    total_pages = (total + per_page - 1) // per_page
+
+    # Query paginada
     cursor.execute("""
         SELECT c.id_curso, c.nombre_curso, cat.nombre_categoria, c.descripcion,
                (SELECT COUNT(*) FROM usuario u WHERE u.id_curso = c.id_curso) AS inscritos
@@ -147,10 +157,18 @@ def cursos_panel():
         JOIN categoria cat ON c.id_categoria = cat.id_categoria
         WHERE c.activo = TRUE
         ORDER BY c.id_curso ASC
-    """)
+        LIMIT %s OFFSET %s
+    """, (per_page, offset))
+
     cursos = dictify_cursor(cursor)
     conn.close()
-    return render_template('admin/cursos/cursos_panel.html', cursos=cursos)
+
+    return render_template('admin/cursos/cursos_panel.html',
+                           cursos=cursos,
+                           page=page,
+                           per_page=per_page,
+                           total_pages=total_pages)
+
 
 # 👁️ Ver curso (admin)
 @cursos_admin.route('/ver_admin/<int:id>')

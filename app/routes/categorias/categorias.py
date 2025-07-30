@@ -4,6 +4,8 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 from routes.utils.utils import get_db_connection
+from psycopg2.extras import RealDictCursor
+
 
 # Formulario con CSRF integrado
 class CategoriaForm(FlaskForm):
@@ -15,12 +17,34 @@ categorias = Blueprint('categorias', __name__)
 @categorias.route('/')
 @login_required
 def lista_categorias():
+    page = request.args.get('page', 1, type=int)
+    limit = 5
+    offset = (page - 1) * limit
+
     conn = get_db_connection()
-    cur = conn.cursor()
-    cur.execute("SELECT id_categoria, nombre_categoria FROM categoria WHERE activo = TRUE ORDER BY id_categoria ASC")
+    cur = conn.cursor(cursor_factory=RealDictCursor)
+
+    cur.execute("""
+        SELECT id_categoria, nombre_categoria
+        FROM categoria
+        WHERE activo = TRUE
+        ORDER BY id_categoria ASC
+        LIMIT %s OFFSET %s
+    """, (limit, offset))
     categorias = cur.fetchall()
+
+    cur.execute("SELECT COUNT(*) FROM categoria WHERE activo = TRUE")
+    total = cur.fetchone()['count']
+    total_pages = (total + limit - 1) // limit
+
     conn.close()
-    return render_template('admin/categoria/categorias_panel.html', categorias=categorias)
+    return render_template('admin/categoria/categorias_panel.html',
+                           categorias=categorias,
+                           page=page,
+                           limit=limit,
+                           total_pages=total_pages)
+
+
 
 @categorias.route('/crear', methods=['GET', 'POST'])
 @login_required

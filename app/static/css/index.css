@@ -2859,3 +2859,41 @@ html, body {
   }
 }
 
+.btn-lg {
+  position: relative;
+  z-index: 10;
+}
+
+.pagination .page-link {
+  color: #6c757d;             /* gris institucional */
+  background-color: #f8f9fa;  /* fondo gris claro */
+  border: 1px solid #dee2e6;
+}
+
+.pagination .page-item.active .page-link {
+  color: #fff;
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+@media (max-width: 768px) {
+  .botones-panel {
+    margin-top: 1rem; /* separa del header en móviles */
+  }
+}
+
+.content-area {
+  padding-top: 2rem;
+  padding-bottom: 110px; /* para que el botón no se tape */
+}
+
+@media (max-width: 768px) {
+  .main-categories-content-wrapper {
+    padding-top: 1rem; /* separa el h2 en vista móvil */
+  }
+}
+
+.content-area {
+  padding-top: 3rem; /* institucional y responsivo */
+}
+

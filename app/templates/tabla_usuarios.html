@@ -34,38 +34,78 @@
     </div>
   </header>
   <br>
+  <main class="container-fluid content-area py-5">
+
+    <div class="container main-categories-content-wrapper">
 
   <div class="row mb-3">
     <div class="col-12">
       <h2 class="category-title mb-0">Usuarios registrados</h2>
     </div>
   </div>
-<div class="table-container-wrapper mb-4"> <div class="card shadow-sm">
-                <div class="card-body p-0"> <div class="table-responsive">
-                        <table class="table table-hover mb-0">
-                            <thead class="thead-light">
-    <tr>
-      <th>Nombre</th>
-      <th>Teléfono</th>
-      <th>Comunidad</th>
-      <th>Municipio</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for u in inscritos %}
-    <tr>
-      <td>{{ u['nombre_completo'] }}</td>
-      <td>{{ u['numero_telefonico'] }}</td>
-      <td>{{ u['comunidad'] }}</td>
-      <td>{{ u['municipio'] }}</td>
-    </tr>
+<div class="table-responsive table-responsive-panel">
+  <div class="card shadow-sm mb-4">
+    <div class="card-body px-3 py-2">
+      <table class="table table-bordered table-hover mb-0">
+        <thead class="thead-light">
+          <tr>
+            <th>Nombre</th>
+            <th>Teléfono</th>
+            <th>Comunidad</th>
+            <th>Municipio</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for u in inscritos %}
+          <tr>
+            <td>{{ u['nombre_completo'] }}</td>
+            <td>{{ u['numero_telefonico'] }}</td>
+            <td>{{ u['comunidad'] }}</td>
+            <td>{{ u['municipio'] }}</td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="4" class="text-center text-muted">
+              No hay usuarios inscritos para este curso.
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<!-- 🔁 Paginador institucional -->
+<div class="pagination-container text-center mt-3 mb-4">
+  <ul class="pagination justify-content-center">
+    {% if pagina > 1 %}
+    <li class="page-item">
+      <a class="page-link" href="{{ url_for('usuarios_admin.ver_inscritos', id_curso=id_curso, pagina=pagina-1) }}">
+        ← Anterior
+      </a>
+    </li>
+    {% endif %}
+
+    {% for p in range(1, (total // por_pagina) + 2) %}
+    <li class="page-item {% if p == pagina %}active{% endif %}">
+      <a class="page-link" href="{{ url_for('usuarios_admin.ver_inscritos', id_curso=id_curso, pagina=p) }}">
+        {{ p }}
+      </a>
+    </li>
     {% endfor %}
-  </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+    {% if pagina < (total // por_pagina) + 1 %}
+    <li class="page-item">
+      <a class="page-link" href="{{ url_for('usuarios_admin.ver_inscritos', id_curso=id_curso, pagina=pagina+1) }}">
+        Siguiente →
+      </a>
+    </li>
+    {% endif %}
+  </ul>
+</div>
+
         <br>
 <div class="row mt-4">
             <div class="col-12 d-flex justify-content-center">

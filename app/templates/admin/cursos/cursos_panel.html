@@ -32,10 +32,11 @@
       <a href="{{ url_for('logout') }}" class="btn btn-outline-danger btn-sm">Cerrar sesión</a>
     </div>
   </header>
-  <br>
-  <p> <br> <p> <p> <br></p></p>
+  <br><br><br><br>
   <p></p>
+
   <main class="container-fluid content-area py-5">
+
     <div class="container main-categories-content-wrapper">
 
       <div class="row mb-3">
@@ -45,7 +46,7 @@
       </div>
 
       <!-- Botones alineados horizontalmente -->
-      <div class="row mb-4 align-items-center">
+      <div class="row mb-4 align-items-center separador-header">
         <div class="col-auto">
           <a href="{{ url_for('cursos_admin.crearCurso') }}" class="btn btn-secondary">
             <i class="fas fa-plus"></i> Crear nuevo curso
@@ -75,7 +76,7 @@
                 <tbody>
                   {% for curso in cursos %}
                   <tr>
-                    <td><a href="{{ url_for('cursos_admin.verCursoAdmin', id_curso=curso['id_curso']) }}">👁️</a></td>
+                    <td><a href="{{ url_for('cursos_admin.verCursoAdmin', id=curso['id_curso']) }}">👁️</a></td>
                     <td>{{ curso['nombre_curso'] }}</td>
                     <td>{{ curso['nombre_categoria'] }}</td>
                     <td>{{ curso['descripcion'] }}</td>
@@ -101,7 +102,7 @@
   <ul class="pagination justify-content-center">
     {% if page > 1 %}
     <li class="page-item">
-      <a class="page-link" href="{{ url_for('cursos_panel', page=page-1) }}">Anterior</a>
+      <a class="page-link" href="{{ url_for('cursos_admin.cursos_panel', page=page-1) }}">Anterior</a>
     </li>
     {% else %}
     <li class="page-item disabled"><span class="page-link">Anterior</span></li>
@@ -111,13 +112,14 @@
       {% if p == page %}
       <li class="page-item active"><span class="page-link">{{ p }}</span></li>
       {% else %}
-      <li class="page-item"><a class="page-link" href="{{ url_for('cursos_panel', page=p) }}">{{ p }}</a></li>
+      <li class="page-item"><a class="page-link" href="{{ url_for('cursos_admin.cursos_panel', page=p) }}">{{ p }}</a>
+
       {% endif %}
     {% endfor %}
 
     {% if page < total_pages %}
     <li class="page-item">
-      <a class="page-link" href="{{ url_for('cursos_panel', page=page+1) }}">Siguiente</a>
+      <a class="page-link" href="{{ url_for('cursos_admin.cursos_panel', page=page+1) }}">Siguiente</a>
     </li>
     {% else %}
     <li class="page-item disabled"><span class="page-link">Siguiente</span></li>
@@ -125,19 +127,20 @@
   </ul>
 </nav>
 
-
-<!-- ✅ Botón debajo de la tabla, dentro del flujo -->
-<div class="container d-flex justify-content-start mt-4">
-  <a href="{{ url_for('admin.panel_admin') }}" class="btn btn-outline-secondary btn-lg">
-    ← Volver
-  </a>
-</div>
-
 {% else %}
 <div class="alert alert-info text-center" role="alert" style="max-width: 600px; margin: 0 auto 2rem auto;">
   <p class="mb-0">No hay cursos registrados actualmente.</p>
 </div>
 {% endif %}
+<div class="row mt-4">
+  <div class="col-12 text-center">
+    <a href="{{ url_for('admin.panel_admin') }}" class="btn btn-outline-secondary btn-lg">
+      ← Volver 
+    </a>
+  </div>
+</div>
+<div style="height: 110px;"></div>
+
 </main> <!-- ← Asegura que este cierre venga DESPUÉS del botón -->
 
 
