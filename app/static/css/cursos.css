@@ -1,0 +1,109 @@
+/* 🔷 Tipografía base y fondo */
+body {
+  font-family: 'Raleway', sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+}
+
+/* 🟣 Franjas moradas institucionales */
+.bg-purple {
+  background-color: #6f42c1;
+  transition: background-color 0.3s ease;
+}
+
+.bg-purple-light {
+  background-color: #8a63d2;
+}
+.bg-purple-dark {
+  background-color: #5a379e;
+}
+
+/* 📘 Encabezado institucional */
+header {
+  background-color: #e6e6fa;
+  border-bottom: 2px solid #ccc;
+  padding: 1rem 0;
+  text-align: center;
+}
+header h5 {
+  color: #6f42c1;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+/* 🖼️ Logo institucional superior */
+.session-logo-top {
+  background-color: #6f42c1;
+  padding: 1rem 0;
+}
+.session-logo-top img {
+  max-height: 90px;
+}
+
+/* 🟣 Botones personalizados */
+.btn-purple {
+  background-color: #6f42c1;
+  color: white;
+  border: none;
+}
+.btn-purple:hover {
+  background-color: #5a379e;
+}
+
+.custom-back-btn {
+  display: inline-block;
+  margin-top: 20px;
+  font-weight: bold;
+  color: #6f42c1;
+  text-decoration: none;
+}
+.custom-back-btn:hover {
+  text-decoration: underline;
+}
+
+/* 📋 Tabla de cursos */
+.table th,
+.table td {
+  vertical-align: middle;
+  text-align: center;
+}
+.table thead th {
+  background-color: #6f42c1;
+  color: white;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #f0f0f5;
+}
+
+/* 📷 Carrusel de imágenes */
+.carousel-inner img {
+  max-height: 500px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* 📤 Campo de carga de imágenes */
+input[type="file"].form-control-file {
+  border: 1px solid #ccc;
+  padding: 6px;
+  border-radius: 4px;
+}
+
+/* 💡 Alertas informativas */
+.alert-info {
+  background-color: #e6efff;
+  border-color: #bee1ff;
+  color: #31708f;
+}
+
+/* 📎 Footer institucional */
+.footer {
+  background-color: #eeeeee;
+  padding: 20px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #333;
+  border-top: 1px solid #ccc;
+}

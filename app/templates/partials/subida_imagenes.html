@@ -1,0 +1,47 @@
+<div class="form-group">
+  <label for="imagenes">➕ Imágenes del curso</label>
+  <input type="file" name="imagenes" id="imagenes" multiple accept="image/*" class="form-control-file">
+  <small class="form-text text-muted">Puedes seleccionar varias imágenes al mismo tiempo (.jpg, .png, .webp)</small>
+</div>
+
+<div id="preview-container" class="d-flex flex-wrap mt-3"></div>
+
+<script>
+  const input = document.getElementById('imagenes');
+  const preview = document.getElementById('preview-container');
+
+  input.addEventListener('change', () => {
+    preview.innerHTML = '';
+    const archivos = Array.from(input.files);
+
+    archivos.forEach((file, index) => {
+      if (file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'position-relative m-2';
+          wrapper.style = 'width: 140px;';
+
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          img.className = 'img-thumbnail';
+          img.style = 'height: 100px; object-fit: cover;';
+
+          const badge = document.createElement('div');
+          badge.className = 'bg-danger text-white text-center position-absolute w-100';
+          badge.style = 'bottom: 0; font-size: 0.75rem; cursor: pointer;';
+          badge.innerText = 'Quitar';
+          badge.onclick = () => {
+            archivos.splice(index, 1);
+            wrapper.remove();
+          };
+
+          wrapper.appendChild(img);
+          wrapper.appendChild(badge);
+          preview.appendChild(wrapper);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  });
+</script>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>ICATLAX - Panel Cursos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
+
+<body>
+  <header class="container-fluid header-area py-3">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-12 text-center">
+        <div class="logo-and-text">
+          <img src="{{ url_for('static', filename='images/Icatlax-logo.png') }}" alt="ICATLAX"
+            class="img-fluid icatlax-symbol-logo">
+
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {% include 'partials/navbar.html' %}
+
+  <!-- Encabezado -->
+  <header class="bg-light border-bottom py-2 mb-3">
+    <div class="container d-flex justify-content-between align-items-center">
+      <h5 class="mb-0 text-muted">Panel Administrativo</h5>
+      <a href="{{ url_for('logout') }}" class="btn btn-outline-danger btn-sm">Cerrar sesión</a>
+    </div>
+  </header>
+  <br>
+  <p> <br> <p> <p> <br></p></p>
+  <p></p>
+  <main class="container-fluid content-area py-5">
+    <div class="container main-categories-content-wrapper">
+
+      <div class="row mb-3">
+        <div class="col-12">
+          <h2 class="category-title mb-0">Cursos</h2>
+        </div>
+      </div>
+
+      <!-- Botones alineados horizontalmente -->
+      <div class="row mb-4 align-items-center">
+        <div class="col-auto">
+          <a href="{{ url_for('cursos_admin.crearCurso') }}" class="btn btn-secondary">
+            <i class="fas fa-plus"></i> Crear nuevo curso
+          </a>
+        </div>
+        <div class="col-auto">
+          <a href="{{ url_for('cursos_admin.papeleraCurso') }}" class="btn btn-outline-secondary">
+            <i class="fas fa-trash-alt"></i> Ver papelera
+          </a>
+        </div>
+      </div>
+      {% if cursos %}
+<div class="table-container-wrapper mb-5">
+  <div class="card shadow-sm table-responsive">
+    <table class="table table-bordered table-hover mb-0">
+      <thead class="thead-light">
+                  <tr>
+                    <th>Ver</th>
+                    <th>Nombre</th>
+                    <th>Categoría</th>
+                    <th>Descripción</th>
+                    <th>Usuarios</th>
+                    <th>Editar</th>
+                    <th>Desactivar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for curso in cursos %}
+                  <tr>
+                    <td><a href="{{ url_for('cursos_admin.verCursoAdmin', id_curso=curso['id_curso']) }}">👁️</a></td>
+                    <td>{{ curso['nombre_curso'] }}</td>
+                    <td>{{ curso['nombre_categoria'] }}</td>
+                    <td>{{ curso['descripcion'] }}</td>
+                    <td>
+                      <strong>{{ curso['inscritos'] }}</strong>
+                      <a href="{{ url_for('usuarios_admin.ver_inscritos', id_curso=curso['id_curso']) }}"
+                        title="Ver inscritos">👥</a>
+                    </td>
+                    <td><a href="{{ url_for('cursos_admin.editarCurso', id=curso['id_curso']) }}">✏️</a></td>
+                    <td>
+                      <a href="{{ url_for('cursos_admin.desactivarCurso', id=curso['id_curso']) }}"
+                        onclick="return confirm('¿Estás seguro de que quieres desactivar este curso?')">❌</a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 🔁 Paginador Bootstrap -->
+<nav aria-label="Paginador de cursos" class="mt-4">
+  <ul class="pagination justify-content-center">
+    {% if page > 1 %}
+    <li class="page-item">
+      <a class="page-link" href="{{ url_for('cursos_panel', page=page-1) }}">Anterior</a>
+    </li>
+    {% else %}
+    <li class="page-item disabled"><span class="page-link">Anterior</span></li>
+    {% endif %}
+
+    {% for p in range(1, total_pages + 1) %}
+      {% if p == page %}
+      <li class="page-item active"><span class="page-link">{{ p }}</span></li>
+      {% else %}
+      <li class="page-item"><a class="page-link" href="{{ url_for('cursos_panel', page=p) }}">{{ p }}</a></li>
+      {% endif %}
+    {% endfor %}
+
+    {% if page < total_pages %}
+    <li class="page-item">
+      <a class="page-link" href="{{ url_for('cursos_panel', page=page+1) }}">Siguiente</a>
+    </li>
+    {% else %}
+    <li class="page-item disabled"><span class="page-link">Siguiente</span></li>
+    {% endif %}
+  </ul>
+</nav>
+
+
+<!-- ✅ Botón debajo de la tabla, dentro del flujo -->
+<div class="container d-flex justify-content-start mt-4">
+  <a href="{{ url_for('admin.panel_admin') }}" class="btn btn-outline-secondary btn-lg">
+    ← Volver
+  </a>
+</div>
+
+{% else %}
+<div class="alert alert-info text-center" role="alert" style="max-width: 600px; margin: 0 auto 2rem auto;">
+  <p class="mb-0">No hay cursos registrados actualmente.</p>
+</div>
+{% endif %}
+</main> <!-- ← Asegura que este cierre venga DESPUÉS del botón -->
+
+
+  <footer class="container-fluid footer-area py-4 text-center">
+    <p class="mb-1">Módulo de Capacitación ICATLAX-Xiloxochitla</p>
+    <p class="mb-1">Dirección: Plaza de comunidad s/n, San Vicente Xiloxochitla, Nativitas, Tlax.</p>
+    <p class="mb-1">Teléfonos: 248 160 8547 y 246 416 1562</p>
+    <p class="mb-1">Email: presidencia@xiloxochitla.mx</p>
+    <p class="mb-0">© 2024-2025 Xiloxochitla</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

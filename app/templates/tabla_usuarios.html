@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>ICATLAX - Usuarios Registrados</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
+
+<body>
+  <header class="container-fluid header-area py-3">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-12 text-center">
+        <div class="logo-and-text">
+          <img src="{{ url_for('static', filename='images/Icatlax-logo.png') }}" alt="ICATLAX"
+            class="img-fluid icatlax-symbol-logo">
+
+        </div>
+      </div>
+    </div>
+  </header>
+
+   {% include 'partials/navbar.html' %}
+
+  
+    <!-- Encabezado -->
+  <header class="bg-light border-bottom py-2 mb-3">
+    <div class="container d-flex justify-content-between align-items-center">
+      <h5 class="mb-0 text-muted">Panel Administrativo</h5>
+      <a href="{{ url_for('logout') }}" class="btn btn-outline-danger btn-sm">Cerrar sesión</a>
+    </div>
+  </header>
+  <br>
+
+  <div class="row mb-3">
+    <div class="col-12">
+      <h2 class="category-title mb-0">Usuarios registrados</h2>
+    </div>
+  </div>
+<div class="table-container-wrapper mb-4"> <div class="card shadow-sm">
+                <div class="card-body p-0"> <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="thead-light">
+    <tr>
+      <th>Nombre</th>
+      <th>Teléfono</th>
+      <th>Comunidad</th>
+      <th>Municipio</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for u in inscritos %}
+    <tr>
+      <td>{{ u['nombre_completo'] }}</td>
+      <td>{{ u['numero_telefonico'] }}</td>
+      <td>{{ u['comunidad'] }}</td>
+      <td>{{ u['municipio'] }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+<div class="row mt-4">
+            <div class="col-12 d-flex justify-content-center">
+                <a href="{{ url_for('cursos_admin.cursos_panel') }}" class="btn btn-outline-secondary btn-lg">
+                    ← Volver <br>
+                </a>
+            </div>
+        </div>
+<br>
+    </main>
+  <footer class="container-fluid footer-area py-4 text-center">
+        <p class="mb-1">Módulo de Capacitación ICATLAX-Xiloxochitla</p>
+        <p class="mb-1">Dirección: Plaza de comunidad s/n, San Vicente Xiloxochitla, Nativitas, Tlax.</p>
+        <p class="mb-1">Teléfonos: 248 160 8547 y 246 416 1562</p>
+        <p class="mb-1">Email: presidencia@xiloxochitla.mx</p>
+        <p class="mb-0">© 2024-2025 Xiloxochitla</p>
+    </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

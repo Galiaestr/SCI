@@ -1,0 +1,15 @@
+/* static/css/estilos.css */
+.bg-purple {
+  background-color: #6f2da8; /* morado institucional */
+}
+
+.btn-purple {
+  background-color: #6f2da8;
+  color: white;
+  border: none;
+}
+
+.btn-purple:hover {
+  background-color: #591f8e;
+  color: #fff;
+}

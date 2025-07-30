@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>ICATLAX - Registro Curso</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
+
+<body>
+  <header class="container-fluid header-area py-3">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-12 text-center">
+        <div class="logo-and-text">
+          <img src="{{ url_for('static', filename='images/Icatlax-logo.png') }}" alt="ICATLAX"
+            class="img-fluid icatlax-symbol-logo">
+
+        </div>
+      </div>
+    </div>
+  </header>
+
+{% include 'partials/navbar.html' %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="container mt-4">
+      {% for category, message in messages %}
+        <div class="alert alert-success alert-dismissible fade show text-center font-weight-bold text-purple" role="alert">
+          {{ message }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+
+<div class="container my-5">
+  <h3 class="text-center mb-4 text-purple font-weight-bold">Registro al Curso</h3>
+
+  <div class="card shadow-sm mx-auto" style="max-width: 600px;">
+    <div class="card-body">
+      <form method="POST" action="{{ url_for('cursos_publico.registroCurso', id=id) }}">
+        {{ form.hidden_tag() }}  
+        <div class="form-group mb-3">
+          {{ form.nombre_completo.label(class="form-label") }}
+          {{ form.nombre_completo(class="form-control", placeholder="nombre completo") }}
+          {% if form.nombre_completo.errors %}
+            <small class="text-danger">{{ form.nombre_completo.errors[0] }}</small>
+          {% endif %}
+        </div>
+
+        <div class="form-group mb-3">
+          {{ form.numero_telefonico.label(class="form-label") }}
+          {{ form.numero_telefonico(class="form-control", placeholder="2461234567") }}
+          <small class="form-text text-muted">Solo números, 10 dígitos</small>
+          {% if form.numero_telefonico.errors %}
+            <small class="text-danger">{{ form.numero_telefonico.errors[0] }}</small>
+          {% endif %}
+        </div>
+
+        <div class="form-group mb-3">
+          {{ form.comunidad.label(class="form-label") }}
+          {{ form.comunidad(class="form-control", placeholder="Ej. San Vicente Xiloxochtitla") }}
+          {% if form.comunidad.errors %}
+            <small class="text-danger">{{ form.comunidad.errors[0] }}</small>
+          {% endif %}
+        </div>
+
+        <div class="form-group mb-3">
+          {{ form.municipio.label(class="form-label") }}
+          {{ form.municipio(class="form-control", placeholder="Ej. Nativitas") }}
+          {% if form.municipio.errors %}
+            <small class="text-danger">{{ form.municipio.errors[0] }}</small>
+          {% endif %}
+        </div>
+
+        {{ form.submit(class="btn btn-success btn-block mt-3") }}
+      </form>
+    </div>
+  </div>
+
+  <a href="{{ url_for('cursos_publico.verCursoPublico', id=id) }}" class="btn btn-outline-secondary mt-4">
+    ← Volver al curso
+  </a>
+</div>
+<footer class="container-fluid footer-area py-4 text-center">
+        <p class="mb-1">Módulo de Capacitación ICATLAX-Xiloxochitla</p>
+        <p class="mb-1">Dirección: Plaza de comunidad s/n, San Vicente Xiloxochitla, Nativitas, Tlax.</p>
+        <p class="mb-1">Teléfonos: 248 160 8547 y 246 416 1562</p>
+        <p class="mb-1">Email: presidencia@xiloxochitla.mx</p>
+        <p class="mb-0">© 2024-2025 Xiloxochitla</p>
+    </footer>
+
+   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ICATLAX - Crear Curso</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
+
+<body>
+    <header class="container-fluid header-area py-3">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-12 text-center">
+                <div class="logo-and-text">
+                    <img src="{{ url_for('static', filename='images/Icatlax-logo.png') }}" alt="ICATLAX"
+                        class="img-fluid icatlax-symbol-logo">
+
+                </div>
+            </div>
+        </div>
+    </header>
+
+  {% include 'partials/navbar.html' %}
+
+      <!-- Encabezado -->
+  <header class="bg-light border-bottom py-2 mb-3">
+    <div class="container d-flex justify-content-between align-items-center">
+      <h5 class="mb-0 text-muted">Panel Administrativo</h5>
+      <a href="{{ url_for('logout') }}" class="btn btn-outline-danger btn-sm">Cerrar sesión</a>
+    </div>
+  </header>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const input = document.getElementById('imagenes');
+      const preview = document.getElementById('preview-container');
+      const btnGuardar = document.getElementById('btn-guardar');
+      let archivos = [];
+
+      input.addEventListener('change', () => {
+        const nuevos = Array.from(input.files);
+        nuevos.forEach(file => {
+          const existe = archivos.some(f =>
+            f.name === file.name &&
+            f.size === file.size &&
+            f.lastModified === file.lastModified
+          );
+          if (!existe) archivos.push(file);
+        });
+
+        renderPreview();
+        input.value = ''; // permitir reselección posterior
+      });
+
+      function renderPreview() {
+        preview.innerHTML = '';
+        archivos.forEach(file => {
+          if (file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = e => {
+              const wrapper = document.createElement('div');
+              wrapper.className = 'position-relative m-2';
+              wrapper.style = 'width: 140px;';
+
+              const img = document.createElement('img');
+              img.src = e.target.result;
+              img.className = 'img-thumbnail';
+              img.style = 'height: 100px; object-fit: cover; object-position: center;';
+
+              const badge = document.createElement('div');
+              badge.className = 'bg-danger text-white text-center position-absolute w-100';
+              badge.style = 'bottom: 0; font-size: 0.75rem; cursor: pointer;';
+              badge.innerText = 'Quitar';
+              badge.onclick = () => {
+                archivos = archivos.filter(f =>
+                  f.name !== file.name ||
+                  f.size !== file.size ||
+                  f.lastModified !== file.lastModified
+                );
+                renderPreview();
+              };
+
+              wrapper.appendChild(img);
+              wrapper.appendChild(badge);
+              preview.appendChild(wrapper);
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+      }
+
+      btnGuardar.addEventListener('click', () => {
+        const form = document.querySelector('form');
+        const nombre = form.nombre.value.trim();
+        const descripcion = form.descripcion.value.trim();
+        const categoria = form.categoria.value;
+
+        if (!nombre || !descripcion || !categoria) {
+          alert('⚠️ Por favor llena todos los campos.');
+          return;
+        }
+
+        btnGuardar.disabled = true;
+
+        const formData = new FormData();
+        formData.append('csrf_token', form.csrf_token.value);
+        formData.append('nombre', nombre);
+        formData.append('descripcion', descripcion);
+        formData.append('categoria', categoria);
+        archivos.forEach(file => {
+          formData.append('imagenes[]', file);
+        });
+
+        fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          credentials: 'same-origin'
+        })
+          .then(res => {
+            if (res.redirected) {
+              window.location.href = res.url;
+            } else {
+              alert('⚠️ Error al guardar el curso.');
+              btnGuardar.disabled = false;
+            }
+          })
+          .catch(err => {
+            alert('❌ Error de conexión: ' + err);
+            btnGuardar.disabled = false;
+          });
+      });
+    });
+
+  </script>
+
+</head>
+
+
+  <div class="container py-4">
+    <h2 class="category-title mb-0"> Crear Nuevo Curso</h2> <br>
+    <form method="POST" action="{{ url_for('cursos_admin.crearCurso') }}" enctype="multipart/form-data">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+      <div class="mb-3">
+        <label class="form-label"> Nombre del Curso:</label> <p></p>
+        <input type="text" class="form-control" name="nombre" required placeholder="Nombre del curso">
+      </div>
+      <div class="mb-3">
+        <label for="categoria" class="form-label">Categoría:</label>
+        <select name="categoria" class="form-select" required>
+          <option value="" disabled selected>Selecciona una categoría</option> <p></p>
+          {% for cat in categorias %}
+          <option value="{{ cat['id_categoria'] }}">{{ cat['nombre_categoria'] }}</option>
+          {% endfor %}
+
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label"> Descripción del curso:</label>
+        <textarea name="descripcion" class="form-control" rows="4" required placeholder="Descripción del curso"></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">🖼️ Imágenes del curso <span class="text-muted">(múltiples)</span></label>
+        <input type="file" id="imagenes" name="imagenes[]" multiple accept="image/*"
+          class="form-control border-secondary">
+        <small class="form-text text-muted">Formatos permitidos: JPG, PNG, WEBP</small> <p></p>
+      </div>
+
+      <div id="preview-container" class="d-flex flex-wrap gap-2 mt-3"></div>
+
+      <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-guardar">Guardar</button>
+
+        <a href="{{ url_for('cursos_admin.cursos_panel') }}" class="btn btn-guardar">← Volver</a>
+
+      </div>
+    </form> 
+  </div>
+
+
+    <footer class="container-fluid footer-area py-4 text-center">
+        <p class="mb-1">Módulo de Capacitación ICATLAX-Xiloxochitla</p>
+        <p class="mb-1">Dirección: Plaza de comunidad s/n, San Vicente Xiloxochitla, Nativitas, Tlax.</p>
+        <p class="mb-1">Teléfonos: 248 160 8547 y 246 416 1562</p>
+        <p class="mb-1">Email: presidencia@xiloxochitla.mx</p>
+        <p class="mb-0">© 2024-2025 Xiloxochitla</p>
+    </footer>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

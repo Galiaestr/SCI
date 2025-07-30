@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ICATLAX - Página Principal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header class="container-fluid header-area py-3">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-12 text-center">
+                <img src="{{ url_for('static', filename='images/Icatlax-logo.png') }}" alt="ICATLAX"
+                    class="img-fluid icatlax-symbol-logo">
+
+            </div>
+        </div>
+        </div>
+    </header>
+    {% include 'partials/navbar.html' %}
+    <br>
+    <main class="container content-area py-5">
+        <section class="container py-4">
+            <div class="row justify-content-center">
+                <p></p>
+                <div class="col-12 col-md-10 col-lg-8"> <br> <br>
+                    <p></p>
+                    <h2 class="fw-bold text-center mb-3 titulo-icatlax" style="color: #5a2d82; margin-top: 60px;">
+                        ¿QUÉ ES ICATLAX?
+                    </h2>
+
+                    <p class="text-justify" style="text-align: justify; color: #333;">Instituto de capacitación con
+                        cobertura estatal, que ofrece cursos y especialidades
+                        con validez oficial, los cuales están enfocados en proporcionar la formación para y en el
+                        trabajo, a través
+                        del desarrollo de conocimientos, habilidades, destrezas y actitudes para mejorar diversos
+                        aspectos en la
+                        vida de los ciudadanos y de los grupos sociales en situación de desventaja, del mismo modo
+                        satisfacer las
+                        necesidades de capacitación específica que demanda el sector productivo así como certificar los
+                        conocimientos, habilidades, destrezas y actitudes correspondientes a una competencia ocupacional
+                        o bien para
+                        el desarrollo del autoempleo.</p> <br> <br>
+                </div>
+            </div>
+        </section>
+    </main>
+    <br>
+    <br>
+    <footer class="container-fluid footer-area py-4 text-center">
+        <p class="mb-1">Módulo de Capacitación ICATLAX-Xiloxochitla</p>
+        <p class="mb-1">Dirección: Plaza de comunidad s/n, San Vicente Xiloxochitla, Nativitas, Tlax.</p>
+        <p class="mb-1">Teléfonos: 248 160 8547 y 246 416 1562</p>
+        <p class="mb-1">Email: presidencia@xiloxochitla.mx</p>
+        <p class="mb-0">© 2024-2025 Xiloxochitla</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

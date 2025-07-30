@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ICATLAX - Panel Administrativo</title>
+
+  <!-- Bootstrap y fuentes -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+</head>
+
+<body style="font-family: 'Raleway', sans-serif; background-color: #f8f9fa;">
+  <!-- 🔐 Encabezado institucional -->
+  <header class="bg-light border-bottom py-2 mb-3">
+    <div class="container d-flex justify-content-between align-items-center">
+      <div class="d-flex align-items-center gap-3">
+        <img src="{{ url_for('static', filename='images/Icatlax-logo.png') }}" alt="Logo ICATLAX" style="height: 50px;">
+        <h5 class="mb-0 text-muted">Panel Administrativo</h5>
+      </div>
+      <a href="{{ url_for('logout') }}" class="btn btn-outline-danger btn-sm">Cerrar sesión</a>
+    </div>
+  </header>
+
+  <!-- 📁 Navegación interna -->
+ <div class="collapse navbar-collapse" id="navbarNav">
+  <ul class="navbar-nav ms-auto">
+    <li class="nav-item">
+      <a class="nav-link" href="{{ url_for('cursos_publico.verCursosPublicos') }}">Cursos disponibles</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{ url_for('login_page') }}">Administrador</a>
+    </li>
+  </ul>
+</div>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="container mt-3">
+      {% for category, message in messages %}
+        {% if category == 'admin_ok' %}
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+        </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+
+
+<main class="container my-4">
+  {% block content %}
+  {% endblock %}
+</main>
+
+<footer
+            class="custom-footer py-3 d-flex flex-column flex-md-row justify-content-between align-items-md-end text-end text-md-start">
+            <div class="back-button-container mb-3 mb-md-0">
+            </div>
+            <!-- Pie de página -->
+            <div class="footer">
+                <p><strong>Módulo de Capacitación ICATLAX-Xiloxochtla</strong></p>
+                <p>Dirección: Plaza de comunidad s/n, San Vicente Xiloxochtla, Nativitas, Tlax.</p>
+                <p>Teléfonos: 248 160 8547 y 246 416 1562</p>
+                <p>Email: presidencia@xiloxochitla.mx</p>
+                <p>© 2024-2025 Xiloxochitla</p>
+            </div>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+                crossorigin="anonymous"></script>
+</body>
+</html>

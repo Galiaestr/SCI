@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ICATLAX - Editar Curso</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+    <header class="container-fluid header-area py-3">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-12 text-center">
+                <div class="logo-and-text">
+                    <img src="{{ url_for('static', filename='images/Icatlax-logo.png') }}" alt="ICATLAX"
+                        class="img-fluid icatlax-symbol-logo">
+                    </div>
+            </div>
+        </div>
+    </header>
+
+   {% include 'partials/navbar.html' %}
+
+
+    <header class="bg-light border-bottom py-2 mb-3">
+        <div class="container d-flex justify-content-between align-items-center">
+            <h5 class="mb-0 text-muted">Panel Administrativo</h5>
+            <a href="{{ url_for('logout') }}" class="btn btn-outline-danger btn-sm">Cerrar sesión</a>
+        </div>
+    </header>
+
+    <main class="container py-4 flex-grow-1">
+        <h2 class="category-title mb-0"> Editar Curso</h2> 
+        <p> <br></p>
+        <div class="mb-4">
+            <h5>🖼️ Imágenes actuales ({{ imagenes|length }})</h5>
+            <div class="d-flex flex-wrap gap-3">
+                {% for img in imagenes %}
+                <div class="position-relative m-2" style="width: 180px;">
+                    <img src="{{ url_for('static', filename='img/' ~ img['foto']) }}" class="img-thumbnail"
+                        style="height: 120px; object-fit: cover; cursor: pointer;" title="Eliminar imagen"
+                        data-url="{{ url_for('cursos_admin.eliminarImagenCurso', id=img['id_imagen']) }}"
+                        onclick="eliminarImagen(this.dataset.url, this)">
+                    <div class="bg-danger text-white text-center position-absolute w-100"
+                        style="bottom: 0; font-size: 0.8rem; opacity: 0.85;">
+                        ¿Eliminar?
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <form id="form-curso" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+            <div class="form-group">
+                <label for="nombre"> Nombre del Curso:</label>
+                <input type="text" id="nombre" name="nombre" class="form-control" value="{{ curso['nombre_curso'] }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="categoria"> Categoría:</label>
+                <select name="categoria" id="categoria" class="form-control" required>
+                    {% for cat in categorias %}
+                    <option value="{{ cat['id_categoria'] }}" {% if cat['id_categoria']==curso['id_categoria'] %}selected{% endif %}>
+                        {{ cat['nombre_categoria'] }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="descripcion"> Descripción:</label>
+                <textarea name="descripcion" id="descripcion" class="form-control" rows="4" required>{{ curso['descripcion'] }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="imagenes">➕ Agregar nuevas imágenes</label>
+                <input type="file" id="imagenes" name="imagenes[]" multiple accept="image/*" class="form-control-file">
+                <small class="form-text text-muted">
+                    <small class="form-text text-muted">Formatos permitidos: JPG, PNG, WEBP</small> <p></p>
+                </small>
+            </div>
+
+            <div id="preview-container" class="d-flex flex-wrap mt-3"></div>
+
+            <div class="d-flex justify-content-between mt-4">
+                <button type="submit" id="btn-guardar" class="btn btn-guardar" onclick='enviarCurso("{{ curso["id_curso"] }}")'>
+                    Guardar
+                </button>
+                <a href="{{ url_for('cursos_admin.cursos_panel') }}" class="btn btn-guardar">Cancelar</a>
+            </div>
+        </form>
+    </main>
+
+    <footer class="container-fluid footer-area py-4 text-center">
+        <p class="mb-1">Módulo de Capacitación ICATLAX-Xiloxochitla</p>
+        <p class="mb-1">Dirección: Plaza de comunidad s/n, San Vicente Xiloxochitla, Nativitas, Tlax.</p>
+        <p class="mb-1">Teléfonos: 248 160 8547 y 246 416 1562</p>
+        <p class="mb-1">Email: presidencia@xiloxochitla.mx</p>
+        <p class="mb-0">© 2024-2025 Xiloxochitla</p>
+    </footer>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Tu código JavaScript original aquí
+        const input = document.getElementById('imagenes');
+        const preview = document.getElementById('preview-container');
+        const guardarBtn = document.getElementById('btn-guardar'); // Asegúrate que el ID del botón es 'btn-guardar'
+        let acumuladas = [];
+
+        input.addEventListener('change', () => {
+            const nuevos = Array.from(input.files);
+
+            nuevos.forEach(file => {
+                const existe = acumuladas.some(f =>
+                    f.name === file.name &&
+                    f.size === file.size &&
+                    f.lastModified === file.lastModified
+                );
+                if (!existe) {
+                    acumuladas.push(file);
+                }
+            });
+
+            preview.innerHTML = '';
+            acumuladas.forEach(file => {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = e => {
+                        const wrapper = document.createElement('div');
+                        wrapper.className = 'position-relative m-2';
+                        wrapper.style = 'width: 140px;';
+
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.className = 'img-thumbnail';
+                        img.style = 'height: 100px; object-fit: cover;';
+
+                        const badge = document.createElement('div');
+                        badge.className = 'bg-danger text-white text-center position-absolute w-100';
+                        badge.style = 'bottom: 0; font-size: 0.75rem; cursor: pointer;';
+                        badge.innerText = 'Quitar';
+                        badge.onclick = () => {
+                            acumuladas = acumuladas.filter(f =>
+                                f.name !== file.name ||
+                                f.size !== file.size ||
+                                f.lastModified !== file.lastModified
+                            );
+                            wrapper.remove();
+                        };
+
+                        wrapper.appendChild(img);
+                        wrapper.appendChild(badge);
+                        preview.appendChild(wrapper);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Limpiar input para permitir nuevas selecciones posteriores
+            input.value = '';
+        });
+
+        function enviarCurso(id_curso) {
+            const form = document.getElementById('form-curso');
+            const formData = new FormData(form);
+
+            // Validación mínima
+            if (!form.nombre.value.trim() || !form.descripcion.value.trim()) {
+                alert('⚠️ Por favor llena todos los campos requeridos.');
+                return;
+            }
+
+            // Loader visual
+            if (guardarBtn) { // Verificar si guardarBtn existe antes de intentar acceder a sus propiedades
+                guardarBtn.disabled = true;
+                guardarBtn.innerText = 'Guardando...';
+            }
+
+            acumuladas.forEach(file => {
+                formData.append('imagenes[]', file);
+            });
+
+            fetch(`/admin/cursos/editar/${id_curso}`, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(res => {
+                    if (res.redirected) {
+                        window.location.href = res.url;
+                    } else {
+                        if (guardarBtn) { // Verificar nuevamente
+                            guardarBtn.disabled = false;
+                            guardarBtn.innerText = '💾 Guardar curso con imágenes';
+                        }
+                        alert('⚠️ La actualización no pudo completarse.');
+                    }
+                })
+                .catch(err => {
+                    if (guardarBtn) { // Verificar nuevamente
+                        guardarBtn.disabled = false;
+                        guardarBtn.innerText = '💾 Guardar curso con imágenes';
+                    }
+                    alert('⚠️ Error: ' + err);
+                });
+        }
+
+        function eliminarImagen(url, elemento) {
+            const csrfToken = document.querySelector('input[name="csrf_token"]').value;
+            const continuar = confirm("⚠️ ¿Eliminar esta imagen? Esta acción no se puede deshacer.");
+            if (!continuar) return;
+
+            fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': csrfToken,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({})
+                })
+                .then(response => {
+                    if (response.ok) {
+                        elemento.parentElement.remove();
+                        alert("✅ Imagen eliminada correctamente.");
+                    } else {
+                        alert("❌ Error al eliminar la imagen.");
+                    }
+                })
+                .catch(error => {
+                    alert("⚠️ Error de conexión: " + error);
+                });
+        }
+    </script>
+</body>
+
+</html>

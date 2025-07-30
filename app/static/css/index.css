@@ -1,0 +1,2861 @@
+/* General Body Styles */
+body {
+    font-family: 'Raleway', sans-serif;
+    line-height: 1.6;
+    background-color: #f8f8f8;
+    /* Light background color for the overall page */
+    color: #333;
+    /* Default text color */
+}
+
+/* Header Area (Top Bar with Logo) */
+.header-area {
+    background-color: #ffffff;
+    /* White background for the header */
+    padding: 20px 0;
+    /* Adjust padding as needed */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    /* Subtle shadow for depth */
+    text-align: center;
+    /* Center content horizontally */
+}
+
+/* Container for logo symbol and text side-by-side */
+.logo-and-text {
+    display: flex;
+    /* Enable Flexbox */
+    align-items: center;
+    /* Vertically align items in the center */
+    justify-content: center;
+    /* Horizontally center the content */
+    gap: 20px;
+    /* Space between the logo symbol and the text */
+    flex-wrap: wrap;
+    /* Allow wrapping on smaller screens */
+    padding: 0 15px;
+    /* Add some padding to prevent content from touching edges on small screens */
+}
+
+.icatlax-symbol-logo {
+    max-width: 500px;
+    /* Make the logo symbol smaller, as in the target design */
+    height: auto;
+}
+
+.logo-text-details {
+    text-align: left;
+    /* Align text to the left within its container */
+    max-width: 350px;
+    /* Limit width of text block */
+}
+
+.main-title-logo {
+    color: #4A0082;
+    /* Deep purple */
+    font-size: 2.8rem;
+    /* Larger font size for "ICATLAX" */
+    font-weight: 700;
+    /* Bolder for the main title */
+    margin-bottom: 0.1rem;
+    line-height: 1.1;
+    /* Adjust line height */
+}
+
+.subtitle-logo {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 0;
+    line-height: 1.2;
+}
+
+.slogan-logo {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 5px;
+}
+
+/* Navigation Bar (Purple Bar with Buttons) */
+.nav-bar {
+    background-color: #cb9fe9;
+    /* Your primary purple color */
+    padding: 15px 0;
+    /* Vertical padding for the bar */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow for depth */
+    /* text-align: right; This is handled by Bootstrap's justify-content-end */
+}
+
+.btn-nav {
+    background-color: #BF72D2;
+    /* Lighter purple for buttons */
+    color:rgb(16, 9, 9);
+    /* White text on buttons */
+    border: none;
+    padding: 8px 18px;
+    /* Slightly smaller padding for buttons */
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    font-size: 0.95rem;
+    /* Slightly smaller font for buttons */
+}
+
+.btn-nav:hover {
+    /* Darker purple on hover */
+    color:rgb(51, 26, 26);
+}
+
+.btn-success {
+    background-color: #cf84dd;
+    /* Your primary purple for the button (this is good) */
+    border-color: #9C27B0;
+    /* Ensure the border matches the background (this is good) */
+    color: #ffffff;
+    /* White text for contrast (this is good) */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    /* Smooth transition on hover */
+}
+
+.btn-success:hover {
+    background-color: #7B1FA2;
+    /* <-- THIS IS THE KEY CHANGE: A slightly darker purple on hover */
+    border-color: #7B1FA2;
+    /* <-- Match border color on hover */
+    color: #ffffff;
+    /* Ensure text remains white on hover */
+}
+
+/* Esta es la parte crucial para el estado "clicado" o "activo" */
+.btn-success:not(:disabled):not(.disabled):active,
+.btn-success:not(:disabled):not(.disabled).active,
+.show>.btn-success.dropdown-toggle {
+    background-color: #7B1FA2;
+    /* <-- Establece aquí tu morado deseado para el estado activo */
+    border-color: #7B1FA2;
+    /* <-- Haz que el color del borde coincida */
+    color: #ffffff;
+    /* Opcional: Elimina la sombra predeterminada de Bootstrap para el estado activo si es verde */
+    box-shadow: none;
+    /* O usa tu sombra morada personalizada: 0 0 0 0.2rem rgba(156, 39, 176, 0.5); */
+}
+
+.badge-primary {
+    background-color: #6c757d;
+    /* A common grey color */
+    color: #ffffff;
+    /* White text on grey background */
+    /* Remove any border if Bootstrap applies it */
+    border: none;
+    text-decoration: none;
+    /* Ensure no underline */
+}
+
+.category-label {
+    color: #a6b0b9;
+    /* Your desired grey color */
+    text-decoration: none;
+    /* Remove any default underline */
+    /* If it had a blue background and you want it gone: */
+    background-color: transparent;
+    padding: 0;
+    /* Remove padding if it was behaving like a badge */
+    font-weight: normal;
+    /* Adjust font weight if needed */
+}
+
+/* If it's a link, ensure hover state is also grey/no underline */
+.category-label:hover {
+    color: #b9c0c6da;
+    /* Slightly darker grey on hover */
+    text-decoration: none;
+    /* Keep no underline on hover, or add if desired */
+}
+
+/* Main Content Area */
+.content-area {
+    background-color: #ffffff;
+    /* White background for the content box */
+    margin-top: 20px;
+    /* Space between nav bar and content */
+    margin-bottom: 20px;
+    /* Space between content and footer */
+    border-radius: 8px;
+    /* Slightly rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    /* Soft shadow */
+    padding: 40px;
+    /* Internal padding for content */
+    min-height: 300px;
+    /* Ensure a minimum height for the content area */
+}
+
+.content-title {
+    color: #4A0082;
+    /* Deep purple for the main title inside content */
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 700;
+    font-size: 2.5rem;
+}
+
+/* Footer Area (Bottom Purple Bar) */
+.footer-area {
+    background-color: #cb9fe9;
+    /* Your primary purple color */
+    color: #251a1a;
+    /* White text for the footer */
+    padding: 20px 0;
+    /* Vertical padding for the bar */
+    font-size: 0.85em;
+    /* Slightly smaller text for footer details */
+}
+
+.footer-area a {
+    color: #ffffff;
+    /* White links in footer */
+    text-decoration: none;
+}
+
+.footer-area a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .logo-and-text {
+        flex-direction: column;
+        /* Stack logo and text vertically on small screens */
+        gap: 10px;
+        /* Reduce gap when stacked */
+    }
+
+    .logo-text-details {
+        text-align: center;
+        /* Center text when stacked */
+    }
+
+    .main-title-logo {
+        font-size: 2rem;
+    }
+
+    .subtitle-logo {
+        font-size: 0.8rem;
+    }
+
+    .slogan-logo {
+        font-size: 0.75rem;
+    }
+
+    .btn-nav {
+        display: block;
+        /* Make buttons block level to stack them */
+        margin: 5px auto;
+        /* Center buttons when stacked */
+        width: 90%;
+        /* Make them wider */
+    }
+
+    .nav-bar .container {
+        flex-direction: column;
+        /* Stack nav buttons on small screens */
+        align-items: center;
+        /* Center buttons */
+    }
+
+    .content-area {
+        padding: 20px;
+        /* Reduce padding on smaller screens */
+    }
+}
+
+@media (max-width: 576px) {
+    .icatlax-symbol-logo {
+        max-width: 80px;
+        /* Even smaller logo on very small screens */
+    }
+}
+
+/* Login Page Styles */
+.login-card {
+    max-width: 400px;
+    /* Limita el ancho de la tarjeta de login */
+    width: 90%;
+    /* Asegura que sea responsiva */
+    padding: 30px;
+    /* Aumenta el padding interno */
+    border-radius: 10px;
+    /* Bordes ligeramente redondeados */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    /* Sombra más pronunciada para que resalte */
+}
+
+/* Título "Iniciar sesión" */
+.login-title {
+    color: #4A0082;
+    /* <-- Morado oscuro para el título */
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    /* Espacio debajo del título */
+}
+
+/* Estilos para los campos de input */
+.login-card .form-control {
+    border-radius: 5px;
+    /* Bordes ligeramente redondeados para los inputs */
+    padding: 10px 15px;
+    font-size: 1.1rem;
+    border: 1px solid #ced4da;
+    /* Borde gris suave */
+}
+
+.login-card .form-control:focus {
+    border-color: #9C27B0;
+    /* Borde morado al enfocar */
+    box-shadow: 0 0 0 0.2rem rgba(156, 39, 176, 0.25);
+    /* Sombra morada al enfocar */
+}
+
+/* Botón "Aceptar" (o el botón de guardar/enviar) */
+.login-submit-btn {
+    background-color: #b7bfc5;
+    /* <-- Gris para el botón de Aceptar */
+    border-color: #6c757d;
+    /* Borde gris */
+    color: #ffffff;
+    /* Texto blanco */
+    font-size: 1.2rem;
+    /* Tamaño de fuente más grande */
+    padding: 12px 20px;
+    /* Más padding */
+    border-radius: 8px;
+    /* Bordes más redondeados */
+    font-weight: 600;
+    /* Texto seminegrita */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    margin-top: 20px;
+    /* Espacio arriba del botón */
+}
+
+.login-submit-btn:hover {
+    background-color: #797f84;
+    /* Gris más oscuro al pasar el ratón */
+    border-color: #5a6268;
+    color: #ffffff;
+}
+
+/* Asegura que el botón se vea gris cuando está activo/enfocado, anulando Bootstrap */
+.login-submit-btn:not(:disabled):not(.disabled):active,
+.login-submit-btn:not(:disabled):not(.disabled).active,
+.login-submit-btn:focus {
+    background-color: #5a6268;
+    /* Gris más oscuro */
+    border-color: #5a6268;
+    box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
+    /* Sombra gris para el foco */
+    outline: 0;
+    color: #ffffff;
+}
+
+/* Asegúrate de que el contenido de main tenga altura suficiente para centrar el login */
+main.content-area {
+    min-height: calc(100vh - (100px + 64px));
+    /* Altura de la ventana - (altura del header + altura del footer) */
+    display: flex;
+    /* Asegura que flexbox funcione para el centrado */
+    justify-content: center;
+    /* Centrado horizontal */
+    align-items: center;
+    /* Centrado vertical */
+    padding-top: 40px;
+    /* Ajusta el padding si es necesario, ya lo tienes en el HTML */
+    padding-bottom: 40px;
+    /* Ajusta el padding si es necesario */
+}
+
+
+/* ... (Media queries responsivas si necesitas ajustar el login en móviles) ... */
+@media (max-width: 767.98px) {
+    .login-card {
+        padding: 20px;
+    }
+
+    .login-title {
+        font-size: 1.8rem;
+    }
+
+    .login-submit-btn {
+        font-size: 1.1rem;
+        padding: 10px 15px;
+    }
+}
+
+/* Nuevo contenedor para el botón "Volver" en la página de login */
+.login-button-volver-container {
+    max-width: 1400px;
+    /* Misma anchura que tu tarjeta de login */
+    width: 90%;
+    /* Misma anchura responsiva */
+    display: flex;
+    /* Habilitar flexbox */
+    justify-content: flex-start;
+    /* Alinea el contenido (el botón) al inicio (izquierda) */
+    /* Puedes añadir margin-left si quieres un pequeño sangrado desde el borde del contenedor */
+    /* margin-left: 15px; */
+    /* Descomenta y ajusta si quieres un pequeño margen a la izquierda */
+}
+
+/* Estilos para panel Admin*/
+
+.admin-panel-title {
+    color: #4A0082;
+    /* Morado oscuro para el título */
+    font-size: 1.5 rem;
+    /* Tamaño de fuente */
+    font-weight: 400;
+    margin-bottom: 0;
+    /* Elimina el margen inferior por defecto de h2 para mejor alineación flex */
+}
+
+/* Contenedor de los botones de gestión (centrado) */
+.admin-gestion-buttons {
+    margin-top: 50px;
+    /* Espacio superior para separar de la cabecera */
+    margin-bottom: 50px;
+    /* Espacio inferior */
+    /* text-align: center; (ya lo tienes en el HTML) */
+}
+
+/* Botones "Gestionar Cursos" y "Gestionar Categorías" */
+.admin-gestion-btn {
+    background-color: #6c757d;
+    /* <-- Gris para los botones de gestión */
+    border-color: #6c757d;
+    /* Borde gris */
+    color: #ffffff;
+    /* Texto blanco */
+    font-size: 1.2rem;
+    /* Tamaño de fuente */
+    padding: 15px 30px;
+    /* Padding generoso para que sean grandes */
+    border-radius: 8px;
+    /* Bordes redondeados */
+    font-weight: 600;
+    /* Texto seminegrita */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    min-width: 220px;
+    /* Para que tengan un ancho mínimo similar */
+    display: inline-flex;
+    /* Para alinear ícono y texto si usas íconos */
+    align-items: center;
+    /* Centrar verticalmente ícono y texto */
+    justify-content: center;
+    /* Centrar horizontalmente ícono y texto */
+    gap: 10px;
+    /* Espacio entre ícono y texto */
+}
+
+.admin-gestion-btn:hover {
+    background-color: #5a6268;
+    /* Gris más oscuro al pasar el ratón */
+    border-color: #5a6268;
+    color: #ffffff;
+}
+
+/* Asegura que los botones de gestión se vean grises cuando están activos/enfocados */
+.admin-gestion-btn:not(:disabled):not(.disabled):active,
+.admin-gestion-btn:not(:disabled):not(.disabled).active,
+.admin-gestion-btn:focus {
+    background-color: #5a6268;
+    /* Gris más oscuro */
+    border-color: #5a6268;
+    box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
+    /* Sombra gris para el foco */
+    outline: 0;
+    color: #ffffff;
+}
+
+
+/* Ajustes responsivos adicionales para el panel administrativo */
+@media (max-width: 767.98px) {
+    .admin-panel-header {
+        flex-direction: column;
+        /* Apilar título y botón en móviles */
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .admin-panel-title {
+        font-size: 2rem;
+        margin-bottom: 15px;
+        /* Espacio entre título y botón en móviles */
+    }
+
+    .admin-logout-btn {
+        width: 100%;
+        /* Botón de salir a ancho completo en móviles */
+        margin-top: 10px;
+    }
+
+    .admin-gestion-buttons {
+        display: flex;
+        /* Usar flexbox para los botones de gestión */
+        flex-direction: column;
+        /* Apilarlos en columna */
+        align-items: center;
+        /* Centrar los botones apilados */
+    }
+
+    .admin-gestion-btn {
+        width: 90%;
+        /* Ancho completo o casi completo en móviles */
+        margin-bottom: 15px;
+        /* Espacio entre botones apilados */
+        margin-right: 0 !important;
+        /* Eliminar mr-3 del primer botón en móviles */
+    }
+}
+
+/* Título de la página de Categorías */
+.category-title {
+    color: #4A0082;
+    /* Morado oscuro para el título */
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0;
+    /* Asegura que no tenga margen inferior extra si está en flex */
+}
+
+/* Botón "Ver papelera" */
+.category-trash-btn {
+    /* btn-outline-secondary de Bootstrap ya le da un estilo gris con contorno */
+    font-size: 1rem;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.category-trash-btn:hover {
+    background-color: #6c757d;
+    /* Fondo gris al pasar el ratón */
+    color: #ffffff;
+    /* Texto blanco */
+}
+
+.category-trash-btn:focus {
+    box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
+    /* Sombra gris para el foco */
+    outline: 0;
+}
+
+
+/* Botón "Nueva" */
+.category-new-btn {
+    background-color: #d8dadb;
+    /* <-- Gris para el botón "Nueva" */
+    border-color: #6c757d;
+    /* Borde gris */
+    color: #2d2c2c;
+    /* Texto blanco */
+    font-size: 1.1rem;
+    /* Tamaño de fuente */
+    padding: 10px 20px;
+    /* Padding interno */
+    border-radius: 10px;
+    /* Bordes redondeados */
+    font-weight: 500;
+    /* Negrita */
+    transition: background-color 0.6s ease, border-color 0.6s ease;
+    /* Alineación si está solo en una columna, flex para ícono y texto */
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    /* Espacio entre ícono y texto */
+}
+
+.category-new-btn:hover {
+    background-color: #5a6268;
+    /* Gris más oscuro al pasar el ratón */
+    border-color: #5a6268;
+    color: #ffffff;
+}
+
+/* Asegura que el botón "Nueva" se vea gris cuando está activo/enfocado */
+.category-new-btn:not(:disabled):not(.disabled):active,
+.category-new-btn:not(:disabled):not(.disabled).active,
+.category-new-btn:focus {
+    background-color: #5a6268;
+    /* Gris más oscuro */
+    border-color: #5a6268;
+    box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
+    /* Sombra gris para el foco */
+    outline: 0;
+    color: #ffffff;
+}
+
+/* Estilos para las celdas de la tabla con botones de acción */
+table .btn-sm {
+    padding: .25rem .5rem;
+    /* Pequeño padding para botones pequeños */
+    font-size: .875rem;
+    /* Tamaño de fuente pequeño */
+    line-height: 1.5;
+    border-radius: .2rem;
+    display: inline-flex;
+    /* Para alinear ícono y texto/nada */
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    /* Pequeño espacio para íconos */
+    min-width: 38px;
+    /* Ancho mínimo para que todos los botones sean iguales */
+}
+
+
+/* Ajustes responsivos para la página de Categorías */
+@media (max-width: 767.98px) {
+    .category-title {
+        font-size: 2rem;
+        text-align: center;
+        /* Centrar el título en móviles */
+        margin-bottom: 15px;
+    }
+
+    .category-trash-btn {
+        width: 100%;
+        /* Botón "Ver papelera" a ancho completo en móviles */
+        margin-bottom: 20px;
+        /* Espacio inferior */
+    }
+
+    .category-new-btn {
+        width: 100%;
+        /* Botón "Nueva" a ancho completo en móviles */
+        text-align: center;
+    }
+}
+
+.table-container-wrapper {
+    max-width: 900px;
+    /* <--- Ajusta este valor al ancho máximo deseado para tu tabla */
+    margin-left: auto;
+    /* Centra el div horizontalmente */
+    margin-right: auto;
+    /* Centra el div horizontalmente */
+    width: 100%;
+    /* Asegura que ocupe el 100% del espacio disponible hasta el max-width */
+    margin-top: 25px;
+    /* Añade un poco de espacio superior si es necesario */
+    margin-bottom: 25px;
+    /* Añade un poco de espacio inferior si es necesario */
+}
+
+table .btn-sm {
+    padding: .25rem .5rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    border-radius: .2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    min-width: 38px;
+}
+
+/* Ajustes responsivos para el contenedor de la tabla si es necesario */
+@media (max-width: 991.98px) {
+
+    /* En pantallas más pequeñas, podrías querer que ocupe más ancho */
+    .table-container-wrapper {
+        max-width: 100%;
+        /* Que ocupe todo el ancho disponible */
+        padding-left: 15px;
+        /* Agrega un padding en los lados */
+        padding-right: 15px;
+        /* Para que no se pegue a los bordes de la pantalla */
+    }
+}
+
+/* NUEVO Contenedor principal para el contenido de categorías (título, botones, tabla) */
+.main-categories-content-wrapper {
+    max-width: 900px;
+    /* <--- Ajusta este valor al ancho máximo deseado para TODO el contenido */
+    margin-left: auto;
+    /* Centra el div horizontalmente */
+    margin-right: auto;
+    /* Centra el div horizontalmente */
+    padding-left: 15px;
+    /* Agrega padding a los lados para que el contenido no se pegue en móviles */
+    padding-right: 15px;
+}
+
+
+/* Estilos para todas las celdas (th y td) de la tabla */
+.table th,
+.table td {
+    border: 1px solid #dee2e6;
+    /* Bordes de las celdas */
+    vertical-align: middle;
+    /* Centra el contenido verticalmente en las celdas */
+    padding: .75rem;
+    /* Padding por defecto de Bootstrap, asegúrate de que esté o ajusta si quieres más */
+}
+
+/* Centrar el contenido de las celdas específicas que contienen los botones */
+.table tbody td:nth-child(1),
+/* Primera columna (Ver) */
+.table tbody td:nth-child(3),
+/* Tercera columna (Editar) */
+.table tbody td:nth-child(4) {
+    /* Cuarta columna (Desactivar) */
+
+    text-align: center;
+    /* Centra horizontalmente el contenido de estas celdas */
+}
+
+/* Centrar el texto en las celdas de encabezado (<th>) */
+.table thead th {
+    text-align: center;
+    /* Centra horizontalmente el texto en las celdas de encabezado */
+}
+
+/* Contenedor principal para el contenido de categorías y papelera */
+.main-categories-content-wrapper {
+    max-width: 900px;
+    /* Asegura el mismo ancho que la tabla principal */
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Estilos para la tabla (aplicados a todas las tablas con clase .table) */
+.table {
+    border: 1px solid #dee2e6;
+    /* Borde exterior de la tabla */
+}
+
+/* Estilo para el botón de Activar (✔️) */
+.btn-success {
+    background-color:rgb(173, 88, 188);
+    /* Verde Bootstrap */
+    border-color:rgb(150, 40, 167);
+    color: white;
+}
+
+.btn-success:hover {
+    background-color:rgb(185, 76, 181);
+    border-color:rgb(116, 25, 121);
+}
+
+/* Estilos para el encabezado de la tabla (thead) */
+.table thead {
+    background-color: #9f9ba2;
+    /* ¡NUEVO! Cambia a un color morado oscuro para el fondo del encabezado */
+    color: #ffffff;
+    /* ¡NUEVO! Cambia el color del texto a blanco para contraste */
+}
+
+/* Estilos para todas las celdas (th y td) de la tabla */
+.table th,
+.table td {
+    vertical-align: middle;
+    /* Centra el contenido verticalmente en las celdas */
+    padding: .75rem;
+}
+
+/* Centrar el contenido de todas las celdas del cuerpo de la tabla (<td>) */
+.table tbody td {
+    text-align: center;
+    /* ¡NUEVO! Centra horizontalmente el contenido de TODAS las celdas de datos */
+}
+
+/* Contenedor principal para el contenido de categorías y papelera que se centra y limita el ancho */
+.main-categories-content-wrapper {
+    max-width: 900px;
+    /* Asegura el mismo ancho que la tabla principal */
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* ... Asegúrate de que no haya un min-height muy grande en main.content-area si lo tenía antes ... */
+main.content-area {
+    /* min-height: ...; */
+    /* Esta línea debería estar eliminada o ajustada */
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+/* Si añadiste algún estilo a .main-categories-content-wrapper que fija la altura */
+.main-categories-content-wrapper {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    /* Asegúrate de que no haya min-height o height que cause el corte del contenido */
+    /* min-height: 400px; /* Si tenías algo así, podría ser la causa */
+}
+
+/* ... Tus estilos existentes para .nav-bar y .btn-nav ... */
+
+.nav-bar {
+    background-color: #cb9fe9;
+    /* Fondo morado claro para la barra de navegación */
+    border-bottom: 1px solid #c0a8c2;
+    /* Un borde sutil abajo */
+}
+
+/* Estilos para los botones de navegación */
+.btn-nav {
+    color:rgb(23, 14, 14);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    /* Asegurarnos de que no haya un min-width que los haga sobresalir en pantallas pequeñas */
+    min-width: unset;
+    /* Deshacer cualquier min-width que impida que se hagan pequeños */
+    white-space: nowrap;
+    /* Evita que el texto del botón se rompa en varias líneas */
+}
+
+
+
+/* ... Tus estilos anteriores ... */
+
+/* Media Query para pantallas pequeñas (móviles) */
+@media (max-width: 767.98px) {
+    .nav-bar .container {
+        /* Para que estén al mismo nivel y justos en móvil: */
+        justify-content: flex-end !important; /* Alinea los botones a la derecha en móvil */
+        flex-wrap: nowrap; /* ¡Importante! Evita que los botones se envuelvan a la siguiente línea si caben. */
+                           /* Si no caben, se desbordarán, pero se mantendrán en línea. */
+    }
+
+    .nav-bar .container .btn-nav {
+        padding: 8px 10px; /* Reduce el padding para que quepan mejor y estén "justos" */
+        font-size: 0.8rem; /* Reduce el tamaño de la fuente para que quepa */
+        margin-left: 5px; /* Margen menor entre botones en móvil */
+        margin-right: 5px; /* Añade un pequeño margen derecho también */
+        margin-bottom: 0; /* Asegura que no haya margen inferior si no se apilan */
+        width: auto; /* Permite que el ancho del botón se ajuste al contenido */
+
+        min-height: 35px; /* Altura mínima para móvil, puedes ajustar */
+    }
+
+    /* Eliminar cualquier margen extra para el último botón si es necesario */
+    .nav-bar .container .btn-nav:first-child {
+        margin-left: 0;
+    }
+    .nav-bar .container .btn-nav:last-child {
+        margin-right: 0;
+    }
+}
+
+/* ... El resto de tus estilos, incluyendo los del logo ... */
+
+.icatlax-symbol-logo {
+    max-width: 500px;
+    /* Ancho máximo para el logo del símbolo en pantallas grandes */
+    height: auto;
+    /* Mantiene la proporción */
+    margin-right: 15px;
+    /* Espacio entre el logo y el texto */
+}
+
+@media (max-width: 767.98px) {
+    .header-area {
+        padding: 15px 0;
+        /* Menos padding en móviles */
+    }
+
+    .logo-and-text {
+        flex-direction: column;
+        /* Apila el logo y el texto verticalmente */
+        text-align: center;
+        /* Centra el texto cuando está apilado */
+    }
+
+    .icatlax-symbol-logo {
+        max-width: 70px;
+        /* Logo más pequeño en móviles */
+        margin-right: 0;
+        /* Sin margen a la derecha */
+        margin-bottom: 10px;
+        /* Margen inferior para separarlo del texto */
+    }
+
+    .logo-text-details {
+        text-align: center;
+        /* Centra el texto cuando está apilado */
+    }
+
+    .main-title-logo {
+        font-size: 2.2rem;
+        /* Tamaño de fuente más pequeño en móviles */
+    }
+
+    .subtitle-logo {
+        font-size: 0.75rem;
+        /* Subtítulo más pequeño */
+    }
+
+    .slogan-logo {
+        font-size: 0.7rem;
+        /* Eslogan más pequeño */
+    }
+}
+
+/* --- Estilos para el HEADER y LOGO --- */
+.header-area {
+    background-color: #ffffff;
+    /* Fondo blanco para el header */
+    padding: 20px 0;
+    /* Espaciado vertical por defecto */
+}
+
+.logo-and-text {
+    display: flex;
+    /* Habilita flexbox para alinear logo e info */
+    align-items: center;
+    /* Alinea verticalmente al centro */
+    justify-content: center;
+    /* Centra el grupo horizontalmente */
+    /* Remueve flex-wrap si quieres forzarlo en una línea,
+       pero para el logo+texto suele ser mejor que envuelva */
+    flex-wrap: wrap;
+    /* Permite que el contenido se envuelva si no cabe */
+}
+
+.icatlax-symbol-logo {
+    max-width: 500px;
+    /* Ancho máximo en escritorio */
+    height: auto;
+    /* Mantiene la proporción */
+    margin-right: 15px;
+    /* Espacio entre el logo y el texto en escritorio */
+}
+
+/* Media Query para pantallas pequeñas (ej. móviles) */
+@media (max-width: 767.98px) {
+
+    /* Este es el breakpoint 'sm' de Bootstrap */
+    .header-area {
+        padding: 10px 0;
+        /* Reduce el padding del header en móvil */
+    }
+
+    .logo-and-text {
+        flex-direction: column;
+        /* Apila el logo y el texto en móvil */
+        text-align: center;
+        /* Centra el contenido cuando está apilado */
+    }
+
+    .icatlax-symbol-logo {
+        max-width: 250px;
+        /* **Aumenta este valor** para hacerlo más visible en móvil */
+        margin-right: 0;
+        /* Quita el margen derecho */
+        margin-bottom: 5px;
+        /* Añade margen inferior para separar del texto */
+    }
+
+    .logo-text-details {
+        text-align: center;
+        /* Centra el texto debajo del logo */
+    }
+
+    .main-title-logo {
+        font-size: 2rem;
+        /* Reduce el tamaño del título principal */
+    }
+
+    .subtitle-logo {
+        font-size: 0.75rem;
+        /* Reduce el tamaño de los subtítulos */
+    }
+
+    .slogan-logo {
+        font-size: 0.65rem;
+        /* Reduce el tamaño del eslogan */
+    }
+}
+
+/* Estilo para el botón Guardar */
+.btn-guardar {
+    background-color: #e0e0e0; /* Un gris claro */
+    color: #333333; /* Color de texto oscuro para contraste */
+    border-color: #cccccc; /* Un borde ligeramente más oscuro */
+    /* Otros estilos que ya tenga tu botón, como padding, border-radius, etc. */
+}
+
+.btn-guardar:hover {
+    background-color: #d0d0d0; /* Un gris un poco más oscuro al pasar el ratón */
+    border-color: #bbbbbb;
+    color: #333333;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+    .category-title {
+        font-size: 1.8rem;
+        text-align: center;
+    }
+
+    /* Centra los botones de "Crear nuevo curso" y "Ver papelera" en pantallas pequeñas */
+    .row.d-flex.justify-content-between.align-items-center.mb-4 {
+        flex-direction: column; /* Apila los botones verticalmente */
+        align-items: center; /* Centra los elementos apilados */
+    }
+
+    .row.d-flex.justify-content-between.align-items-center.mb-4 > .col-auto {
+        margin-bottom: 10px; /* Espacio entre los botones apilados */
+    }
+
+    .row.d-flex.justify-content-between.align-items-center.mb-4 > .col-auto:last-child {
+        margin-bottom: 0;
+    }
+
+    /* ... Tus estilos existentes ... */
+
+/* Para asegurar que los botones ocupen un ancho más predecible en móviles */
+@media (max-width: 767.98px) {
+    /* Mantenemos el apilamiento y centrado para los botones de acción en la fila */
+    .row.mb-4 > .col-6 {
+        width: 100%; /* Que cada botón ocupe todo el ancho disponible */
+        text-align: center !important; /* Centra el texto del botón */
+        margin-bottom: 10px; /* Espacio entre los botones apilados */
+    }
+
+    .row.mb-4 > .col-6:last-child {
+        margin-bottom: 0; /* Elimina el margen inferior del último botón apilado */
+    }
+
+    /* Asegurarnos que el row que contiene los botones se apile correctamente */
+    .row.mb-4 {
+        flex-direction: column; /* Apila las columnas verticalmente */
+        align-items: center; /* Centra el grupo de botones */
+    }
+}
+
+/* Asegura que html y body ocupen el 100% de la altura de la ventana */
+html, body {
+    height: 100%;
+}
+
+/* Convierte el body en un contenedor flex para organizar sus hijos verticalmente */
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estilos para el título de la categoría/página */
+.category-title {
+    color: #4A0082; /* Color morado oscuro */
+    font-size: 2.2rem;
+    font-weight: 600;
+}
+
+/* Estilos de las tarjetas de curso */
+.card {
+    border-radius: 0.5rem;
+    overflow: hidden;
+    cursor: pointer; /* Muestra un cursor de mano para indicar que es clickeable */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Pequeño efecto al pasar el ratón */
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.card-img-top {
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+}
+
+.card-body {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribuye el espacio entre los elementos del body */
+}
+
+.card-title {
+    margin-bottom: 0.5rem;
+}
+
+.card-text {
+    flex-grow: 1; /* Permite que la descripción ocupe el espacio disponible */
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.badge-primary {
+    background-color: #9370DB; /* Color morado para el badge */
+    color: white;
+    padding: 0.4em 0.6em;
+    border-radius: 0.25rem;
+    font-size: 0.85em;
+}
+
+/* >>>>>> SECCIÓN DE BOTONES MORADOS <<<<<< */
+/* Asegúrate de que estas reglas estén al final de tu index.css para mayor precedencia */
+
+/* Estilos para el botón "Registrarse" (clase btn-purple) */
+.btn.btn-purple { /* Hacemos la regla más específica: .btn Y .btn-purple */
+    background-color: #BA55D3 !important; /* Morado vibrante, con !important */
+    border-color: #BA55D3 !important;
+    color: white !important; /* Asegura que el texto sea blanco, con !important */
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.3rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    line-height: 1.5;
+    font-size: 1rem;
+}
+
+.btn.btn-purple:hover,
+.btn.btn-purple:focus {
+    background-color: #9932CC !important; /* Morado más oscuro al pasar el ratón, con !important */
+    border-color: #9932CC !important;
+    color: white !important; /* Asegura que el texto siga siendo blanco, con !important */
+    text-decoration: none;
+}
+
+/* Estilo para el ícono dentro del botón */
+.btn-purple i {
+    margin-right: 0.5rem; /* Espacio entre el ícono y el texto */
+    color: white !important; /* Asegura que el ícono sea blanco, con !important */
+}
+/* >>>>>> FIN DE LA SECCIÓN DE BOTONES MORADOS <<<<<< */
+
+
+/* Estilos para el botón "Volver al inicio" */
+.btn-outline-secondary {
+    border-color: #6c757d;
+    color: #6c757d;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #6c757d;
+    color: white;
+}
+
+/* Estilos de la barra de navegación */
+.nav-bar {
+    background-color: #cb9fe9; /* Color morado de la barra de navegación */
+}
+
+.btn-nav {
+    background-color: #9370DB; /* Un morado más claro para los botones de navegación */
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-nav:hover {
+    background-color: #8A2BE2; /* Un morado más oscuro al pasar el ratón */
+    color: white;
+    text-decoration: none;
+}
+
+/* Estilos del footer */
+.footer-area {
+    background-color: #DDA0DD; /* Color morado para el footer */
+    color: white;
+}
+
+.footer-area p {
+    margin-bottom: 0.25rem; /* Menos espacio entre las líneas del footer */
+}
+
+.footer-area a {
+    color: white;
+    text-decoration: underline;
+}
+
+.footer-area a:hover {
+    color: #f0f0f0;
+}
+
+/* Media query para móviles (corregido) */
+@media (max-width: 767.98px) {
+    .nav-bar .container {
+        justify-content: center !important; /* Centra los botones horizontalmente en móvil */
+        flex-wrap: wrap; /* Permite que los botones se envuelvan si no caben */
+    }
+}
+
+/* Asegura que html y body ocupen el 100% de la altura de la ventana */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+/* Convierte el body en un contenedor flex para organizar sus hijos verticalmente */
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estilos de la cabecera */
+.header-area {
+    background-color: #DDA0DD; /* Un morado claro para el header */
+    color: white;
+}
+
+.icatlax-symbol-logo {
+    max-height: 80px; /* Ajusta según sea necesario */
+    width: auto;
+}
+
+/* Estilos de la barra de navegación */
+.nav-bar {
+    background-color: #DDA0DD; /* Color morado de la barra de navegación */
+}
+
+.btn-nav {
+    background-color: #9370DB; /* Un morado más claro para los botones de navegación */
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-nav:hover {
+    background-color: #8A2BE2; /* Un morado más oscuro al pasar el ratón */
+    color: white;
+    text-decoration: none;
+}
+
+/* Estilos para el título de la categoría/página */
+.category-title {
+    color: #4A0082; /* Color morado oscuro */
+    font-size: 2.2rem;
+    font-weight: 600;
+}
+
+/* Estilos para la tarjeta de detalle del curso */
+.course-detail-card {
+    border-radius: 0.75rem;
+    overflow: hidden; /* Asegura que las esquinas redondeadas se vean bien */
+    margin-top: 2rem;
+}
+
+.course-main-img {
+    height: 350px; /* Altura fija para las imágenes del carrusel */
+    object-fit: cover; /* Asegura que la imagen cubra el área sin distorsión */
+    border-top-left-radius: 0.75rem;
+    border-bottom-left-radius: 0.75rem; /* Ajusta las esquinas inferiores para el lado izquierdo */
+}
+
+/* Estilo para el placeholder de "Sin imagen disponible" */
+.no-image-placeholder {
+    height: 350px; /* Misma altura que las imágenes */
+    background-color: #f8f9fa;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top-left-radius: 0.75rem;
+    border-bottom-left-radius: 0.75rem;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.course-info-body {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.course-detail-title {
+    color: #4A0082;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+.course-category-badge {
+    background-color: #9370DB; /* Morado para el badge */
+    color: white;
+    padding: 0.4em 0.8em;
+    border-radius: 0.25rem;
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+.course-description-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #343a40;
+}
+
+/* Estilos de la galería de curso (si aún se usa para algo, aunque ahora es carrusel) */
+.course-gallery img {
+    height: 100px; /* Altura fija para las miniaturas de la galería */
+    object-fit: cover;
+}
+
+/* >>>>>> SECCIÓN DE BOTONES MORADOS (Aplicable a todos los .btn.btn-purple) <<<<<< */
+.btn.btn-purple {
+    background-color: #BA55D3 !important; /* Morado vibrante */
+    border-color: #BA55D3 !important;
+    color: white !important;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.3rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    line-height: 1.5;
+    font-size: 1rem;
+}
+
+.btn.btn-purple:hover,
+.btn.btn-purple:focus {
+    background-color: #9932CC !important; /* Morado más oscuro al pasar el ratón */
+    border-color: #9932CC !important;
+    color: white !important;
+    text-decoration: none;
+}
+
+.btn-purple i {
+    margin-right: 0.5rem;
+    color: white !important;
+}
+/* >>>>>> FIN SECCIÓN DE BOTONES MORADOS <<<<<< */
+
+/* Estilos para el botón "Volver" */
+.btn-outline-secondary {
+    border-color: #6c757d;
+    color: #6c757d;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #6c757d;
+    color: white;
+}
+
+/* Estilos del footer */
+.footer-area {
+    background-color: #DDA0DD; /* Color morado para el footer */
+    color: white;
+    margin-top: auto; /* Asegura que el footer se "pegue" al fondo */
+}
+
+.footer-area p {
+    margin-bottom: 0.25rem;
+}
+
+.footer-area a {
+    color: white;
+    text-decoration: underline;
+}
+
+.footer-area a:hover {
+    color: #f0f0f0;
+}
+
+/* Media query para pantallas más pequeñas (móviles) */
+@media (max-width: 767.98px) {
+    .nav-bar .container {
+        justify-content: center !important; /* Centra los botones en la barra de navegación en móviles */
+        flex-wrap: wrap; /* Permite que los elementos se envuelvan */
+    }
+
+    .course-detail-card .row.no-gutters {
+        flex-direction: column; /* Apila las columnas en móviles */
+    }
+
+    .course-main-img, .no-image-placeholder {
+        border-radius: 0.75rem 0.75rem 0 0; /* Solo redondea las esquinas superiores en móvil */
+    }
+
+    .course-info-body {
+        padding: 1rem; /* Reduce el padding en móviles */
+    }
+
+    .course-detail-title {
+        font-size: 2rem; /* Reduce el tamaño del título en móviles */
+    }
+
+    .button-group {
+        flex-direction: column; /* Apila los botones si hay varios */
+        gap: 10px; /* Espacio entre botones apilados */
+    }
+
+    .button-group .btn {
+        width: 100%; /* Botones de ancho completo en móvil */
+    }
+}
+
+/* Para las imágenes en las tarjetas de la lista de cursos */
+.card-img-top {
+    height: 180px; /* Altura fija para todas las imágenes de la tarjeta */
+    object-fit: cover; /* Recorta la imagen para que cubra el espacio sin distorsión */
+    /* Asegúrate de que no haya otros estilos que anulen esto */
+    border-top-left-radius: 0.5rem; /* Si los quieres redondeados */
+    border-top-right-radius: 0.5rem; /* Si los quieres redondeados */
+}
+
+/* Para el placeholder de "Sin imagen disponible" en la lista de cursos */
+.card-img-top.bg-light.text-center { /* Usa este selector más específico para el placeholder */
+    height: 180px; /* Misma altura que las imágenes */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Asegúrate de que no haya otros estilos que anulen esto */
+}
+
+/* Asegúrate de que estas reglas estén en tu static/css/index.css */
+
+/* Estilos para la tarjeta de detalle del curso */
+.course-detail-card {
+    border-radius: 0.75rem;
+    overflow: hidden; /* Importante para que las imágenes no se desborden de las esquinas redondeadas */
+    margin-top: 2rem;
+}
+
+/* ====================================================
+   SECCIÓN CRÍTICA: CONTROL DE TAMAÑO DE IMAGENES
+   ====================================================
+*/
+
+/* Para las imágenes dentro del carrusel de la vista de detalles del curso */
+.course-main-img {
+    height: 350px; /* <--- ALTURA FIJA: ESTO ES CLAVE */
+    object-fit: cover; /* <--- CÓMO SE AJUSTA LA IMAGEN: ESTO ES CLAVE */
+    width: 100%; /* Asegura que ocupe todo el ancho de su contenedor */
+    /* Asegúrate de que estas propiedades no estén siendo sobrescritas en otro lugar */
+    
+    /* Reglas para las esquinas redondeadas en el lado izquierdo de la tarjeta */
+    border-top-left-radius: 0.75rem;
+    border-bottom-left-radius: 0.75rem;
+}
+
+/* Para el placeholder de "Sin imagen disponible" en la vista de detalles del curso */
+.no-image-placeholder {
+    height: 350px; /* <--- MISMA ALTURA FIJA QUE LAS IMÁGENES: ESTO ES CLAVE */
+    background-color: #f8f9fa; /* Color de fondo claro para el placeholder */
+    color: #6c757d; /* Color de texto gris para el placeholder */
+    display: flex; /* Para centrar el contenido (icono/texto) */
+    align-items: center; /* Centrado vertical */
+    justify-content: center; /* Centrado horizontal */
+    text-align: center; /* Para el texto */
+    font-size: 1.2rem;
+    
+    /* Reglas para las esquinas redondeadas en el lado izquierdo de la tarjeta */
+    border-top-left-radius: 0.75rem;
+    border-bottom-left-radius: 0.75rem;
+}
+
+/* ====================================================
+   FIN SECCIÓN CRÍTICA
+   ====================================================
+*/
+
+
+/* Media query para pantallas más pequeñas (móviles) */
+@media (max-width: 767.98px) {
+    .course-main-img, 
+    .no-image-placeholder {
+        /* En móviles, las imágenes/placeholder ocupan todo el ancho y solo redondean las esquinas superiores */
+        border-radius: 0.75rem 0.75rem 0 0; 
+        height: 250px; /* Puedes ajustar una altura diferente para móviles si lo prefieres */
+    }
+
+    .course-detail-card .row.no-gutters {
+        flex-direction: column; /* Apila las columnas en móviles */
+    }
+
+    /* Asegúrate de que estas reglas de media query para los botones también estén si las necesitas */
+    .button-group {
+        flex-direction: column; /* Apila los botones si hay varios */
+        gap: 10px; /* Espacio entre botones apilados */
+    }
+    .button-group .btn {
+        width: 100%; /* Botones de ancho completo en móvil */
+    }
+}
+
+/* Otros estilos que ya tenías y son importantes (header, nav, botones morados, footer, etc.) */
+/* ... (Asegúrate de tener el resto del CSS que te proporcioné antes para .btn-purple, .btn-nav, .header-area, .footer-area, etc.) ... */
+
+/* Ejemplo de cómo debe verse tu .btn-purple en index.css */
+.btn.btn-purple {
+    background-color: #BA55D3 !important; /* Morado vibrante */
+    border-color: #BA55D3 !important;
+    color: white !important;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.3rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    line-height: 1.5;
+    font-size: 1rem;
+}
+
+.btn.btn-purple:hover,
+.btn.btn-purple:focus {
+    background-color: #9932CC !important; /* Morado más oscuro al pasar el ratón */
+    border-color: #9932CC !important;
+    color: white !important;
+    text-decoration: none;
+}
+
+/* Asegura que html y body ocupen el 100% de la altura de la ventana */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+/* Convierte el body en un contenedor flex para organizar sus hijos verticalmente */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Asegura que el body tenga al menos el alto de la ventana */
+}
+
+/* Estilos de la cabecera */
+.header-area {
+    background-color: #DDA0DD; /* Un morado claro para el header */
+    color: white;
+}
+
+.icatlax-symbol-logo {
+    max-height: 80px; /* Ajusta según sea necesario */
+    width: auto;
+}
+
+/* Estilos de la barra de navegación */
+.nav-bar {
+    background-color: #DDA0DD; /* Color morado de la barra de navegación */
+}
+
+.btn-nav {
+    background-color: #9370DB; /* Un morado más claro para los botones de navegación */
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-nav:hover {
+    background-color: #8A2BE2; /* Un morado más oscuro al pasar el ratón */
+    color: white;
+    text-decoration: none;
+}
+
+/* Estilos para el título de la categoría/página */
+.category-title {
+    color: #4A0082; /* Color morado oscuro */
+    font-size: 2.2rem;
+    font-weight: 600;
+}
+
+/* Estilos generales para las tarjetas de cursos disponibles (si tienes esa vista) */
+.card-img-top { /* Esto es para la vista de Cursos Disponibles, no para el detalle */
+    height: 180px; /* Altura fija para las miniaturas en la lista de cursos */
+    object-fit: cover;
+    border-top-left-radius: calc(0.25rem - 1px); /* Ajuste para bordes redondeados de card */
+    border-top-right-radius: calc(0.25rem - 1px);
+}
+
+.card-img-top.bg-light.text-center { /* Placeholder en la lista de cursos */
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* ====================================================
+   ESTILOS ESPECÍFICOS PARA LA VISTA DE DETALLES DEL CURSO
+   (Aquí se resuelve el problema de las imágenes que cambian de tamaño)
+   ====================================================
+*/
+
+.course-detail-card {
+    border-radius: 0.75rem;
+    overflow: hidden; /* Asegura que las esquinas redondeadas se vean bien y el contenido no se desborde */
+    margin-top: 2rem;
+}
+
+.course-main-img {
+    height: 350px !important; /* <--- ALTURA FIJA Y !important para asegurar la prioridad */
+    object-fit: cover !important; /* <--- CÓMO SE AJUSTA LA IMAGEN Y !important */
+    width: 100% !important; /* Asegura que ocupe todo el ancho disponible */
+    border-top-left-radius: 0.75rem;
+    border-bottom-left-radius: 0.75rem; /* Ajusta las esquinas inferiores para el lado izquierdo */
+}
+
+/* Estilo para el placeholder de "Sin imagen disponible" en la vista de detalles */
+.no-image-placeholder {
+    height: 350px !important; /* <--- MISMA ALTURA FIJA Y !important */
+    background-color: #f8f9fa;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top-left-radius: 0.75rem;
+    border-bottom-left-radius: 0.75rem;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+/* ====================================================
+   FIN ESTILOS ESPECÍFICOS DE DETALLES DEL CURSO
+   ====================================================
+*/
+
+
+.course-info-body {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.course-detail-title {
+    color: #4A0082;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+.course-category-badge {
+    background-color: #9370DB; /* Morado para el badge */
+    color: white;
+    padding: 0.4em 0.8em;
+    border-radius: 0.25rem;
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+.course-description-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #343a40;
+}
+
+/* >>>>>> SECCIÓN DE BOTONES MORADOS <<<<<< */
+.btn.btn-purple {
+    background-color: #BA55D3 !important; /* Morado vibrante */
+    border-color: #BA55D3 !important;
+    color: white !important;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.3rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    line-height: 1.5;
+    font-size: 1rem;
+}
+
+.btn.btn-purple:hover,
+.btn.btn-purple:focus {
+    background-color: #9932CC !important; /* Morado más oscuro al pasar el ratón */
+    border-color: #9932CC !important;
+    color: white !important;
+    text-decoration: none;
+}
+
+.btn-purple i {
+    margin-right: 0.5rem;
+    color: white !important;
+}
+/* >>>>>> FIN SECCIÓN DE BOTONES MORADOS <<<<<< */
+
+/* Estilos para el botón "Volver" */
+.btn-outline-secondary {
+    border-color: #6c757d;
+    color: #6c757d;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #6c757d;
+    color: white;
+}
+
+/* Estilos del footer */
+.footer-area {
+    background-color: #DDA0DD; /* Color morado para el footer */
+    color: white;
+    margin-top: auto; /* Asegura que el footer se "pegue" al fondo */
+}
+
+.footer-area p {
+    margin-bottom: 0.25rem;
+}
+
+.footer-area a {
+    color: white;
+    text-decoration: underline;
+}
+
+.footer-area a:hover {
+    color: #f0f0f0;
+}
+
+/* Media query para pantallas más pequeñas (móviles) */
+@media (max-width: 767.98px) {
+    .nav-bar .container {
+        justify-content: center !important; /* Centra los botones en la barra de navegación en móviles */
+        flex-wrap: wrap; /* Permite que los elementos se envuelvan */
+    }
+
+    .course-detail-card .row.no-gutters {
+        flex-direction: column; /* Apila las columnas en móviles */
+    }
+
+    .course-main-img,
+    .no-image-placeholder {
+        border-radius: 0.75rem 0.75rem 0 0; /* Solo redondea las esquinas superiores en móvil */
+        height: 250px !important; /* Puedes ajustar esta altura para móviles */
+    }
+
+    .course-info-body {
+        padding: 1rem; /* Reduce el padding en móviles */
+    }
+
+    .course-detail-title {
+        font-size: 2rem; /* Reduce el tamaño del título en móviles */
+    }
+
+    .button-group {
+        flex-direction: column; /* Apila los botones si hay varios */
+        gap: 10px; /* Espacio entre botones apilados */
+    }
+
+    .button-group .btn {
+        width: 100%; /* Botones de ancho completo en móvil */
+    }
+}
+
+.fixed-carousel-height {
+    min-height: 350px;
+    height: 350px;
+    overflow: hidden;
+    position: relative;
+}
+
+
+.course-main-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+/* ... (todo el CSS anterior hasta la sección de detalles del curso) ... */
+
+/* ====================================================
+   ESTILOS ESPECÍFICOS PARA LA VISTA DE DETALLES DEL CURSO
+   (Aquí se resuelve el problema de las imágenes que cambian de tamaño)
+   ====================================================
+*/
+
+.course-detail-card {
+    border-radius: 0.75rem;
+    overflow: hidden; /* Asegura que las esquinas redondeadas se vean bien y el contenido no se desborde */
+    margin-top: 2rem;
+}
+
+/* Agregamos una altura fija al contenedor interno del carrusel */
+#courseDetailCarousel .carousel-inner {
+    height: 350px; /* <--- ALTURA FIJA PARA EL CONTENEDOR DEL CARRUSEL */
+    overflow: hidden; /* Asegura que cualquier desbordamiento dentro del carrusel se recorte */
+    border-top-left-radius: 0.75rem; /* Asegura el redondeo si el carrusel no tiene bordes propios */
+    border-bottom-left-radius: 0.75rem;
+}
+
+/* Las imágenes dentro del carrusel se ajustarán a esta altura */
+.course-main-img {
+    height: 100% !important; /* <--- Ahora ocupan el 100% de la altura de su padre (.carousel-inner) */
+    object-fit: cover !important; /* <--- CÓMO SE AJUSTA LA IMAGEN */
+    width: 100% !important; /* Asegura que ocupe todo el ancho disponible */
+    /* Quitamos los border-radius de aquí, ya que el .carousel-inner los maneja */
+    /* border-top-left-radius: 0.75rem; */
+    /* border-bottom-left-radius: 0.75rem; */
+}
+
+/* Estilo para el placeholder de "Sin imagen disponible" en la vista de detalles */
+.no-image-placeholder {
+    height: 350px !important; /* <--- MISMA ALTURA FIJA QUE EL CARRUSEL */
+    background-color: #f8f9fa;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top-left-radius: 0.75rem;
+    border-bottom-left-radius: 0.75rem;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+/* ====================================================
+   FIN ESTILOS ESPECÍFICOS DE DETALLES DEL CURSO
+   ====================================================
+*/
+
+/* ... (todo el resto de tu CSS para .course-info-body, botones, footer, media queries, etc.) ... */
+
+/* Media query para pantallas más pequeñas (móviles) */
+@media (max-width: 767.98px) {
+    /* ... (tus reglas existentes de media query) ... */
+
+    /* Ajuste para el carrusel y placeholder en móviles */
+    #courseDetailCarousel .carousel-inner,
+    .no-image-placeholder {
+        height: 250px !important; /* Altura ajustada para móviles */
+        border-radius: 0.75rem 0.75rem 0 0 !important; /* Redondea solo las esquinas superiores */
+    }
+
+    /* La imagen dentro del carrusel se sigue adaptando al 100% de su contenedor */
+    .course-main-img {
+        border-radius: 0 !important; /* Para que la imagen no tenga redondeo propio si el contenedor ya lo tiene */
+    }
+
+    /* ... (resto de tus reglas de media query) ... */
+}
+
+.fixed-carousel-height {
+  height: 350px; /* Altura estable */
+  overflow: hidden;
+  position: relative;
+  background-color: #f8f9fa; /* Color institucional claro para evitar parpadeo */
+}
+
+.course-main-img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.carousel-wrapper {
+  height: 250px; /* Altura visual estable, puedes ajustar */
+  overflow: hidden;
+  position: relative;
+  background-color: #fff; /* Alineado al layout institucional */
+}
+
+.carousel-inner {
+  height: 100%;
+}
+
+
+.course-main-img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover; /* Evita distorsiones */
+}
+
+.carousel-wrapper {
+  height: 260px;
+  overflow: hidden;
+  background-color: #f8f9fa;
+}
+
+.carousel-inner {
+  height: 100%;
+}
+
+
+.course-main-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.icatlax-symbol-logo {
+  max-width: 240px;
+  width: 100%;
+  height: auto;
+}
+
+.nav-bar {
+  background-color: var(--icolor-morado); /* asumiendo una variable de tu identidad */
+  color: white;
+}
+
+.btn-nav {
+  font-size: 1rem;
+  padding: 0.4rem 1rem;
+  background-color: purple;
+  border-radius: 4px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn-nav:hover {
+  background-color: #f0f0f0;
+}
+
+.content-title {
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.content-area p {
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.footer-area {
+  background-color:rgb(222, 136, 219);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.footer-area a {
+  color: var(--icolor-morado);
+  text-decoration: none;
+}
+
+.footer-area a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .content-title {
+    font-size: 1.6rem;
+  }
+
+  .content-area p {
+    font-size: 1rem;
+  }
+
+  .btn-nav {
+    font-size: 0.95rem;
+    padding: 0.3rem 0.8rem;
+  }
+
+  .footer-area {
+    font-size: 0.85rem;
+  }
+}
+
+.header-area {
+  background-color: var(--icolor-blanco);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  text-align: center;
+}
+
+.icatlax-symbol-logo {
+  max-width: 260px;
+  width: 100%;
+  height: auto;
+}
+
+.nav-bar {
+  background-color: var(--icolor-morado);
+  color: var(--icolor-blanco);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-nav {
+  font-size: 1rem;
+  background-color: var(--icolor-blanco);
+  color: var(--icolor-morado);
+  padding: 0.4rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn-nav:hover {
+  background-color: #eaeaea;
+}
+
+.content-area {
+  background-color: var(--icolor-blanco);
+  text-align: center;
+}
+
+.content-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.content-area p {
+  font-size: 1.1rem;
+  color: #444;
+}
+
+.footer-area {
+  background-color: var(--icolor-morado);
+  color: var(--icolor-blanco);
+  font-size: 0.95rem;
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.footer-area a {
+  color:rgb(79, 10, 10);
+  text-decoration: underline;
+}
+
+.footer-area a:hover {
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .content-title {
+    font-size: 1.6rem;
+  }
+
+  .content-area p {
+    font-size: 1rem;
+  }
+
+  .btn-nav {
+    font-size: 0.9rem;
+    padding: 0.3rem 0.8rem;
+  }
+
+  .footer-area {
+    font-size: 0.85rem;
+  }
+}
+
+.nav-bar {
+  background-color:rgb(183, 137, 205);
+  color: white;
+  padding: 0.8rem 1rem;
+}
+
+.btn-nav {
+  background-color: white;
+  color:rgb(95, 81, 102);
+  border: none;
+  font-weight: 600;
+  padding: 0.4rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-nav:hover {
+  background-color:rgb(205, 129, 221);
+}
+
+.footer-area {
+  background-color: rgb(183, 137, 205);/* Franja morada institucional */
+  color: #ffffff;
+  padding: 2rem 1rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.footer-area a {
+  color: #f0f0f0;
+  text-decoration: underline;
+}
+
+.footer-area a:hover {
+  color: #ffffff;
+}
+
+.btn-nav {
+  background-color:rgb(150, 92, 178);         /* Fondo morado institucional */
+  color: #ffffff;                    /* Texto blanco */
+  border: none;
+  font-weight: 600;
+  padding: 0.4rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-nav:hover {
+  background-color: #4a1a61;         /* Tono más profundo al pasar el mouse */
+  box-shadow: 0 2px 8pxrgb(150, 92, 178);
+  text-decoration: none;
+}
+
+.nav-button-group {
+  display: flex;
+  justify-content: center;
+  gap: 16px; /* separación entre botones */
+  flex-wrap: wrap; /* evita desbordes en móviles */
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+@media (max-width: 576px) {
+  .nav-button-group {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+.nav-bar {
+  background-color: rgb(183, 137, 205);
+  padding-bottom: 0.5rem;
+}
+
+.nav-button-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem; /* Si no usas Bootstrap 5 para gap, conserva ml-3 en HTML */
+}
+
+.btn-nav {
+  background-color: rgb(150, 92, 178);
+  color: #ffffff;
+  padding: 0.4rem 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-nav:hover {
+  background-color: rgb(183, 137, 205);
+}
+
+.bg-morado {
+  background-color: rgb(183, 137, 205);
+}
+
+.navbar-brand {
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: #fff !important;
+  font-family: 'Raleway', sans-serif;
+}
+
+.nav-link {
+  color: #ffffff !important;
+  font-weight: 500;
+}
+
+.bg-morado {
+  background-color:  #cb9fe9;
+}
+
+.nav-link {
+  color: #ffffff !important;
+  font-weight: 500;
+  font-family: 'Raleway', sans-serif;
+}
+
+.nav-link {
+  background-color: #fff;
+  color: #5b1a75 !important;
+  border-radius: 4px;
+  padding: 6px 12px;
+  margin-left: 10px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.nav-link:hover {
+  background-color:rgb(132, 65, 65);
+}
+
+.bg-morado {
+  background-color: #cb9fe9;
+}
+
+.nav-link {
+  color:rgb(103, 50, 202) !important;
+  font-weight: 500;
+  font-family: 'Raleway', sans-serif;
+}
+
+.navbar {
+  z-index: 1000;
+}
+
+.nav-link {
+  color:rgb(173, 23, 23) !important;
+  font-weight: 500;
+  font-family: 'Raleway', sans-serif;
+}
+
+/*#navContent {
+  display: flex !important;
+
+}*/
+
+.bg-morado {
+  background-color: #cb9fe9;
+}
+
+.navbar-brand {
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: #fff !important;
+  font-family: 'Raleway', sans-serif;
+}
+
+.nav-link {
+  color:rgb(221, 120, 247) !important;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.nav-link:hover {
+  background-color: #4a1360;
+}
+
+/*@media (min-width: 768px) {
+  #navContent {
+    display: flex !important;
+  }
+}*/
+
+@media (min-width: 768px) {
+  #navContent {
+    display: flex !important;
+    justify-content: flex-end;
+  }
+}
+
+.navbar-nav .nav-link {
+  color: white !important;
+  font-weight: 600;
+  font-family: 'Raleway', sans-serif;
+}
+
+.navbar-nav .nav-link {
+  color:rgb(81, 75, 75) !important;         /* Blanco puro para máximo contraste */
+  font-weight: 700;                  /* Más peso para destacar */
+  font-size: 1.05rem;                /* Tamaño ligeramente mayor */
+  font-family: 'Raleway', sans-serif;
+  letter-spacing: 0.6px;             /* Separación sutil entre letras */
+  text-transform: uppercase;         /* Opcional: estilo institucional */
+  padding-left: 0.8rem;
+  padding-right: 0.8rem;
+}
+
+
+.navbar-brand {
+  color: #ffffff !important;
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.3rem;
+}
+
+.navbar-brand {
+  color: #ffffff !important;
+  font-weight: 700;
+  font-size: 1.4rem;
+  font-family: 'Raleway';
+  letter-spacing: 0.8px;
+}
+
+.navbar-nav .nav-link {
+  color: #ffffff !important;
+  font-weight: 600;
+  font-size: 1.05rem;
+  font-family: 'Raleway', sans-serif;
+  letter-spacing: 0.6px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.navbar-nav .nav-link {
+  color: #ffffff !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  font-weight: 600;
+  font-size: 1.05rem;
+  font-family: 'Raleway', sans-serif;
+  letter-spacing: 0.6px;
+  padding: 0.5rem 1rem;
+}
+
+.navbar-brand {
+  color: #ffffff !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  font-weight: 700;
+  font-size: 1.4rem;
+  letter-spacing: 0.8px;
+}
+
+.navbar-nav .nav-link {
+  color: #ffffff !important;           /* Blanco puro para contraste máximo */
+  font-weight: 600;
+  font-size: 1.1rem;
+  font-family: 'Raleway', sans-serif;
+  letter-spacing: 0.5px;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #ffd700 !important;           /* Dorado institucional al pasar el cursor */
+}
+
+.navbar-brand {
+  color: #ffffff !important;
+  font-weight: 700;
+  font-size: 1.4rem;
+  font-family: 'Raleway', sans-serif;
+  letter-spacing: 0.8px;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: #ffffff !important;     /* Blanco completo para máxima visibilidad */
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: 0.5px;
+  font-family: 'Raleway', sans-serif;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+  color: #ffc107 !important;  /* Amarillo dorado institucional */
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: #ffffff !important;       /* Blanco puro para contraste máximo */
+  opacity: 1 !important;           /* Elimina cualquier transparencia */
+  visibility: visible !important;  /* Asegura que el texto esté visible */
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: 0.5px;
+  font-family: 'Raleway', sans-serif;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+  color: #ffc107 !important;       /* Dorado institucional al pasar el cursor */
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  background-color: #d3d3d3 !important;  /* Gris claro */
+  color: #212529 !important;             /* Texto oscuro para contraste */
+  border-radius: 0.25rem;
+  padding: 0.4rem 0.8rem;
+  font-weight: 600;
+  font-size: 1rem;
+  font-family: 'Raleway', sans-serif;
+  margin: 0.2rem;
+  transition: background-color 0.3s ease;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+  background-color: #c0c0c0 !important;  /* Gris más oscuro al pasar el cursor */
+  color: #000 !important;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  background-color: #e0e0e0 !important;  /* Gris más claro */
+  color: #212529 !important;             /* Texto oscuro */
+  font-weight: 600;
+  font-size: 1.05rem;
+  font-family: 'Raleway', sans-serif;
+  letter-spacing: 0.4px;
+  padding: 0.45rem 0.9rem;
+  border-radius: 0.3rem;
+  margin: 0.2rem;
+  transition: all 0.3s ease;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+  background-color: #cccccc !important;
+  color: #000 !important;
+}
+
+@media (max-width: 768px) {
+  .navbar-dark .navbar-nav .nav-link {
+    font-size: 1rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .navbar-toggler {
+    color: #fff;
+    border-color: #fff;
+  }
+}
+
+.course-detail-card {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: #fdfdfd;
+  font-family: 'Raleway', sans-serif;
+  box-shadow: 0 0.25rem 0.75rem rgba(0,0,0,0.1);
+}
+.course-detail-title {
+  color: #540b66; /* Morado institucional */
+  font-weight: 700;
+  font-size: 1.6rem;
+}
+.course-category-badge {
+  background-color: #540b66;
+  font-size: 0.9rem;
+}
+.course-description-text {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.button-group .btn {
+  max-width: 300px;
+  width: 100%;
+  font-size: 1.05rem;
+  font-weight: 600;
+  padding: 0.6rem 1rem;
+  border-radius: 0.3rem;
+}
+
+@media (max-width: 768px) {
+  .course-detail-card {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+  .course-detail-title {
+    font-size: 1.4rem;
+  }
+}
+
+.content-area {
+  margin-top: 2rem;     /* Separación del navbar */
+  margin-bottom: 2rem;  /* Separación del footer */
+}
+
+.course-detail-card {
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .course-detail-card {
+    margin-bottom: 2.5rem; /* Espacio extra para no cubrir el footer */
+  }
+}
+
+.course-detail-card {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+@media (max-width: 70px) {
+  .course-detail-card {
+    margin-bottom: 3rem;
+  }
+}
+
+.course-detail-card {
+  height: 600px;
+}
+
+.course-detail-card {
+  min-height: 500px;
+}
+
+.course-detail-card {
+  height: 65vh;
+}
+
+
+@media (max-width: 768px) {
+  .course-detail-card {
+    margin-bottom: 3rem;
+  }
+}
+
+.volver-wrapper {
+  text-align: left;
+}
+
+@media (max-width: 768px) {
+  .volver-wrapper {
+    text-align: center;
+  }
+}
+
+.volver-fijo {
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 1050;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+@media (max-width: 768px) {
+  .volver-fijo {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* Scroll horizontal solo para pantallas pequeñas */
+.tabla-responsive-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 1.5rem;
+}
+
+.table {
+  min-width: 650px; /* ajusta según cantidad de columnas */
+}
+
+@media (min-width: 992px) {
+  .tabla-responsive-wrapper {
+    overflow-x: visible; /* en escritorio no hace falta scroll horizontal */
+  }
+}
+
+/* Asegura que html y body ocupen el 100% de la altura de la ventana */
+html, body {
+    height: 100%; /* Permite que el body se expanda al 100% de la ventana */
+    margin: 0; /* Elimina márgenes predeterminados del navegador */
+    padding: 0; /* Elimina paddings predeterminados */
+    overflow-x: hidden; /* Evita el scroll horizontal no deseado en general */
+}
+
+/* Convierte el body en un contenedor flex para organizar sus hijos verticalmente */
+body {
+    display: flex;
+    flex-direction: column; /* Apila los elementos (header, main, footer) verticalmente */
+    min-height: 100vh; /* Asegura que el body tenga al menos el alto de la ventana */
+    position: relative; /* Importante para z-index si es necesario, pero no debería serlo aquí */
+}
+
+/* Estilos para el contenido principal */
+main.content-area {
+    flex-grow: 1; /* Permite que el contenido principal ocupe todo el espacio disponible */
+    padding-top: 20px; /* Un padding inicial, ajustaremos esto con márgenes para el header/nav */
+    padding-bottom: 20px; /* Padding para el footer */
+}
+
+/* Footer se "pega" abajo */
+.footer-area {
+    background-color: #DDA0DD;
+    color: white;
+    margin-top: auto; /* Esto es CLAVE: empuja el footer al final */
+    padding-top: 1.5rem; /* Padding interno del footer */
+    padding-bottom: 1.5rem; /* Padding interno del footer */
+}
+
+/* Ajustes para el header y la barra de navegación */
+.header-area, .nav-bar {
+    position: sticky; /* O 'fixed' si quieres que siempre estén visibles */
+    top: 0;
+    width: 100%;
+    z-index: 1020; /* Mayor que el contenido para que se vea por encima (Bootstrap usa z-index altos) */
+}
+
+.nav-bar {
+    /* Tu CSS existente para la barra de navegación */
+    margin-bottom: 0; /* Asegura que no haya un margen inferior que empuje el contenido */
+}
+
+/* Media query para pantallas más pequeñas (móviles) */
+@media (max-width: 767.98px) {
+    /* ... Tus media queries existentes ... */
+
+    /* Importante: Añadir padding superior e inferior al main para evitar superposición */
+    main.content-area {
+        padding-top: 150px; /* Ajusta este valor: altura combinada de tu header + nav en móvil */
+        padding-bottom: 100px; /* Ajusta este valor: altura de tu footer en móvil */
+    }
+
+
+/* Para pantallas más grandes */
+@media (min-width: 768px) {
+    main.content-area {
+        /* Altura de tu header (aprox 80px) + altura de tu nav (aprox 60px) = 140px. Ajusta */
+        padding-top: 140px; 
+    }
+}
+
+ }
+
+ .table-responsive-panel {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0.5rem;
+}
+
+.table-responsive-panel table {
+  min-width: 120px; /* Ajusta según columnas */
+  width: 50%;
+  border-collapse: collapse;
+}
+
+ }
+
+
+ .table-responsive-panel {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0.5rem;
+}
+
+.table-responsive-panel table {
+  min-width: 720px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.category-new-btn,
+.category-trash-btn {
+  white-space: nowrap;
+}
+
+.table-responsive-panel {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0.5rem;
+}
+
+.table-responsive-panel table {
+  min-width: 720px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.category-new-btn,
+.category-trash-btn {
+  white-space: nowrap;
+}
+
+.table-responsive-panel {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0.5rem;
+  max-width: 100%;
+}
+
+.table-responsive-panel table {
+  min-width: 720px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th, .table td {
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.category-new-btn,
+.category-trash-btn {
+  white-space: nowrap;
+  margin-right: 0.5rem;
+}
+
+.table-responsive-panel {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0.5rem;
+  max-width: 100%;
+}
+
+.table-responsive-panel table {
+  min-width: 720px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.main-categories-content-wrapper {
+  padding-top: 1rem;
+}
+
+.category-title {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.category-new-btn,
+.category-trash-btn {
+  white-space: nowrap;
+  margin-right: 0.5rem;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .category-new-btn,
+  .category-trash-btn {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.table-responsive-panel {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 10%;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+.carousel-wrapper {
+  position: relative;
+}
+
+.course-main-img {
+  object-fit: cover;
+  height: 300px; /* o lo que se adapte a tu layout */
+}
+
+.titulo-icatlax {
+  font-weight: bold;      /* Aunque Bootstrap ya lo aplica, refuerza */
+  text-transform: uppercase;
+  font-size: 1.8rem;
+}
+
+.texto-morado {
+  color: #5a2d82;
+  font-weight: bold;       /* Opcional si quieres reforzar */
+  font-size: 1.1rem;       /* Ajusta según jerarquía visual */
+}
+
+.text-purple {
+  color: #5a2d82; /* Tono institucional morado */
+  font-weight: bold; /* Opcional, para reforzar jerarquía */
+}
+
+/* 📦 Contenedor de tabla con margen inferior para evitar choque con footer */
+.table-container-wrapper {
+  margin-bottom: 120px; /* Puedes ajustar el valor según altura del footer */
+}
+
+/* 💡 Si el footer necesita quedarse al final de la pantalla */
+html, body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-area {
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .table th,
+  .table td {
+    white-space: nowrap;
+    font-size: 0.9rem;
+  }
+
+  .btn-lg {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .footer-area {
+    font-size: 0.85rem;
+  }
+}
+
+.table-container-wrapper {
+  margin-bottom: 100px; /* Asegura que el scroll no se coma el footer */
+}
+
+.footer-area {
+  position: relative;
+  z-index: 10;
+}
+
+.content-area {
+  flex: 1;
+}
+
+.table-container-wrapper {
+  overflow-x: auto;
+  margin-bottom: 100px; /* Evita choque con footer */
+}
+
+/* Opcional: si quieres que la tarjeta no recorte la tabla */
+.card.shadow-sm {
+  overflow-x: visible;
+}
+
+/* Evita el acortamiento visual */
+.table {
+  min-width: 900px; /* Asegura suficiente ancho para scroll */
+}
+
+/* Refinamiento responsivo */
+@media (max-width: 768px) {
+  .table th,
+  .table td {
+    white-space: nowrap;
+  }
+}
+
+.table-container-wrapper {
+  margin-bottom: 120px;
+}
+
+@media (max-width: 768px) {
+  .table-container-wrapper {
+    margin-bottom: 160px;
+  }
+
+  .btn-lg {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+}
+
+.table-container-wrapper {
+  margin-bottom: 100px;
+}
+
+@media (max-width: 768px) {
+  .table-container-wrapper {
+    margin-bottom: 160px;
+  }
+
+  .btn-lg {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+}
+
