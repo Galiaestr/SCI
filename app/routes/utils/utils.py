@@ -23,9 +23,7 @@ def get_db_connection():
 
 #-----------------------------ADMINISTRADOR 
 def allowed_username(nombre_administrador):
-    # Define el patrón de la expresión regular para letras y números sin espacios ni caracteres especiales
     pattern = re.compile(r'^[a-zA-Z0-9]+$')
-    # Comprueba si el nombre de usuario coincide con el patrón
     if pattern.match(nombre_administrador):
         return True
     else:
@@ -35,11 +33,9 @@ def allowed_username(nombre_administrador):
 #---------------------------------PAGINADOR-------------------------
 def paginador1(sql_count: str, sql_lim: str, search_query: str, in_page: int, per_pages: int) -> tuple[list[dict], int, int, int, int]:
     
-# Obtener parámetros de paginación
     page = request.args.get('page', in_page, type=int)
     per_page = request.args.get('per_page', per_pages, type=int)
 
-    # Validar los valores de entrada
     if page < 1:
         page = 1
     if per_page < 1:
@@ -48,15 +44,12 @@ def paginador1(sql_count: str, sql_lim: str, search_query: str, in_page: int, pe
     offset = (page - 1) * per_page
 
     try:
-        # Conectar a la base de datos
         conn = get_db_connection()
         cursor = conn.cursor(cursor_factory=RealDictCursor)
 
-        # Ejecutar consulta para contar el total de elementos que coinciden con la búsqueda
         cursor.execute(sql_count, (f"%{search_query}%",f"%{search_query}%"))
         total_items = cursor.fetchone()['count']
 
-        # Ejecutar consulta para obtener elementos paginados que coinciden con la búsqueda
         cursor.execute(sql_lim, (f"%{search_query}%",f"%{search_query}%", per_page, offset))
         items = cursor.fetchall()
 
@@ -65,11 +58,9 @@ def paginador1(sql_count: str, sql_lim: str, search_query: str, in_page: int, pe
         items = []
         total_items = 0
     finally:
-        # Asegurar el cierre de la conexión
         cursor.close()
         conn.close()
 
-    # Calcular el total de páginas
     total_pages = (total_items + per_page - 1) // per_page
 
     return items, page, per_page, total_items, total_pages
@@ -90,11 +81,9 @@ def paginador2(sql_count: str, sql_lim: str, params_count: tuple, params_lim: tu
         conn = get_db_connection()
         cursor = conn.cursor(cursor_factory=RealDictCursor)
 
-        # Ejecutar consulta para contar total de elementos
         cursor.execute(sql_count, params_count)
         total_items = cursor.fetchone()['count']
 
-        # Ejecutar consulta paginada
         cursor.execute(sql_lim, params_lim + (per_page, offset))
         items = cursor.fetchall()
 
@@ -142,34 +131,33 @@ def paginador3(sql_count: str, sql_lim: str, filtros: list, in_page: int, per_pa
     return items, page, per_page, total_items, total_pages
 
 # --------------------------------------------------------------IMAGENES--------------------------------------------------------------
-
-def my_random_string(string_length=10):
-    """Regresa una cadena aleatoria de la longitud de string_length."""
-    random = str(uuid.uuid4()) # Conviente el formato UUID a una cadena de Python.
-    random = random.upper() # Hace todos los caracteres mayusculas.
-    random = random.replace("-","") # remueve el separador UUID '-'.
-    return random[0:string_length] # regresa la cadena aleatoria.
-
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-def obtener_imagenes_por_curso(cursor, id_curso):
-    cursor.execute("SELECT foto FROM imagenes_curso WHERE id_curso = %s", (id_curso,))
-    return cursor.fetchall()
+def my_random_string(string_length=10):
+    random = str(uuid.uuid4()).upper().replace("-", "")
+    return random[:string_length]
 
-def procesar_imagenes(lista_archivos, ruta_destino):
+def procesar_imagenes(lista_archivos, ruta_destino=None):
     guardadas = []
+    ruta_destino = ruta_destino or current_app.config['UPLOAD_FOLDER']
+
     for archivo in lista_archivos:
-        if archivo and archivo.filename != '':
-            nombre = secure_filename(archivo.filename)
+        if archivo and archivo.filename != '' and allowed_file(archivo.filename):
+            nombre_original = secure_filename(archivo.filename.rsplit('.', 1)[0])
+            extension = archivo.filename.rsplit('.', 1)[1].lower()
+            nombre_uuid = f"{nombre_original}_{my_random_string(8)}.{extension}"
+
             try:
-                archivo.save(os.path.join(ruta_destino, nombre))
-                guardadas.append(nombre)
+                ruta_completa = os.path.join(ruta_destino, nombre_uuid)
+                archivo.save(ruta_completa)
+                guardadas.append(nombre_uuid)
             except Exception as e:
-                print(f"❌ Falló {nombre}: {e}")
+                print(f"❌ Falló {nombre_uuid}: {e}")
+        else:
+            print(f"⚠️ Archivo no válido o sin nombre: {archivo.filename}")
     return guardadas
 
 

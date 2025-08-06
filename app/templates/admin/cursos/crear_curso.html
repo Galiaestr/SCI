@@ -2,36 +2,108 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <title>ICATLAX - Crear Curso</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>ICATLAX - Crear Curso</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
 
 <body>
-    <header class="container-fluid header-area py-3">
-        <div class="row justify-content-center align-items-center">
-            <div class="col-12 text-center">
-                <div class="logo-and-text">
-                    <img src="{{ url_for('static', filename='images/Icatlax-logo.png') }}" alt="ICATLAX"
-                        class="img-fluid icatlax-symbol-logo">
-
-                </div>
-            </div>
+  <header class="container-fluid header-area py-3">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-12 text-center">
+        <div class="logo-and-text">
+          <img src="{{ url_for('static', filename='images/Icatlax-logo.png') }}" alt="ICATLAX"
+            class="img-fluid icatlax-symbol-logo">
         </div>
-    </header>
+      </div>
+    </div>
+  </header>
 
   {% include 'partials/navbar.html' %}
 
-      <!-- Encabezado -->
+  <!-- Encabezado -->
   <header class="bg-light border-bottom py-2 mb-3">
     <div class="container d-flex justify-content-between align-items-center">
       <h5 class="mb-0 text-muted">Panel Administrativo</h5>
       <a href="{{ url_for('logout') }}" class="btn btn-outline-danger btn-sm">Cerrar sesión</a>
     </div>
   </header>
+
+  <div class="container py-4">
+
+    {% with mensajes = get_flashed_messages(with_categories=true) %}
+      {% if mensajes %}
+        {% for categoria, mensaje in mensajes %}
+          <div class="alert alert-{{ 'danger' if categoria == 'admin_error' else 'success' }} alert-dismissible fade show" role="alert">
+            {{ mensaje }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <h2 class="category-title mb-0"> Crear Nuevo Curso</h2> <br>
+
+    <form method="POST" action="{{ url_for('cursos_admin.crearCurso') }}" enctype="multipart/form-data">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+      <div class="mb-3">
+        <label class="form-label"> Nombre del Curso:</label>
+        <input type="text" class="form-control" name="nombre" required placeholder="Nombre del curso">
+      </div>
+
+      <div class="mb-3">
+        <label for="categoria" class="form-label">Categoría:</label>
+        <select name="categoria" class="form-select" required>
+          <option value="" disabled selected>Selecciona una categoría</option>
+          {% for cat in categorias %}
+            <option value="{{ cat['id_categoria'] }}">{{ cat['nombre_categoria'] }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label"> Descripción del curso:</label>
+        <textarea name="descripcion" class="form-control" rows="4" required placeholder="Descripción del curso"></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">🖼️ Imágenes del curso <span class="text-muted">(múltiples)</span></label>
+        <input type="file" id="imagenes" name="imagenes[]" multiple accept="image/*"
+          class="form-control border-secondary">
+        <small class="form-text text-muted">Formatos permitidos: JPG, PNG, WEBP</small>
+      </div>
+
+      <div id="preview-container" class="d-flex flex-wrap gap-2 mt-3"></div>
+
+      <div class="d-flex justify-content-between">
+        <button type="submit" class="btn btn-guardar" id="btn-guardar">Guardar</button>
+        <a href="{{ url_for('cursos_admin.cursos_panel') }}" class="btn btn-guardar">← Volver</a>
+      </div>
+    </form>
+  </div>
+
+  <footer class="container-fluid footer-area py-4 text-center">
+    <p class="mb-1">Módulo de Capacitación ICATLAX-Xiloxochitla</p>
+    <p class="mb-1">Dirección: Plaza de comunidad s/n, San Vicente Xiloxochitla, Nativitas, Tlax.</p>
+    <p class="mb-1">Teléfonos: 248 160 8547 y 246 416 1562</p>
+    <p class="mb-1">Email: presidencia@xiloxochitla.mx</p>
+    <p class="mb-0">© 2024-2025 Xiloxochitla</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+    crossorigin="anonymous"></script>
+
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const input = document.getElementById('imagenes');
@@ -51,7 +123,7 @@
         });
 
         renderPreview();
-        input.value = ''; // permitir reselección posterior
+        input.value = '';
       });
 
       function renderPreview() {
@@ -132,71 +204,7 @@
           });
       });
     });
-
   </script>
-
-</head>
-
-
-  <div class="container py-4">
-    <h2 class="category-title mb-0"> Crear Nuevo Curso</h2> <br>
-    <form method="POST" action="{{ url_for('cursos_admin.crearCurso') }}" enctype="multipart/form-data">
-      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-
-      <div class="mb-3">
-        <label class="form-label"> Nombre del Curso:</label> <p></p>
-        <input type="text" class="form-control" name="nombre" required placeholder="Nombre del curso">
-      </div>
-      <div class="mb-3">
-        <label for="categoria" class="form-label">Categoría:</label>
-        <select name="categoria" class="form-select" required>
-          <option value="" disabled selected>Selecciona una categoría</option> <p></p>
-          {% for cat in categorias %}
-          <option value="{{ cat['id_categoria'] }}">{{ cat['nombre_categoria'] }}</option>
-          {% endfor %}
-
-        </select>
-      </div>
-
-      <div class="mb-3">
-        <label class="form-label"> Descripción del curso:</label>
-        <textarea name="descripcion" class="form-control" rows="4" required placeholder="Descripción del curso"></textarea>
-      </div>
-
-      <div class="mb-3">
-        <label class="form-label">🖼️ Imágenes del curso <span class="text-muted">(múltiples)</span></label>
-        <input type="file" id="imagenes" name="imagenes[]" multiple accept="image/*"
-          class="form-control border-secondary">
-        <small class="form-text text-muted">Formatos permitidos: JPG, PNG, WEBP</small> <p></p>
-      </div>
-
-      <div id="preview-container" class="d-flex flex-wrap gap-2 mt-3"></div>
-
-      <div class="d-flex justify-content-between">
-                <button type="submit" class="btn btn-guardar">Guardar</button>
-
-        <a href="{{ url_for('cursos_admin.cursos_panel') }}" class="btn btn-guardar">← Volver</a>
-
-      </div>
-    </form> 
-  </div>
-
-
-    <footer class="container-fluid footer-area py-4 text-center">
-        <p class="mb-1">Módulo de Capacitación ICATLAX-Xiloxochitla</p>
-        <p class="mb-1">Dirección: Plaza de comunidad s/n, San Vicente Xiloxochitla, Nativitas, Tlax.</p>
-        <p class="mb-1">Teléfonos: 248 160 8547 y 246 416 1562</p>
-        <p class="mb-1">Email: presidencia@xiloxochitla.mx</p>
-        <p class="mb-0">© 2024-2025 Xiloxochitla</p>
-    </footer>
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

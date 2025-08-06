@@ -50,7 +50,8 @@
             <i class="fas fa-plus"></i> Nueva
           </a>
         </div>
-        <div class="col-auto"> <a href="{{ url_for('categorias.papelera_categoria') }}" class="btn btn-outline-secondary">
+        <div class="col-auto"> <a href="{{ url_for('categorias.papelera_categoria') }}"
+            class="btn btn-outline-secondary">
             <i class="fas fa-trash-alt"></i> Ver papelera
           </a>
         </div>
@@ -71,73 +72,72 @@
                   </tr>
                 </thead>
                 <tbody>
-  {% for cat in categorias %}
-  <tr>
-    <td>
-      <a href="{{ url_for('categorias.ver_categoria', id=cat['id_categoria']) }}">
-        👁️
-      </a>
-    </td>
-    <td>{{ cat['nombre_categoria'] }}</td>
-    <td>
-      <a href="{{ url_for('categorias.editar_categoria', id=cat['id_categoria']) }}">
-        ✏️
-      </a>
-    </td>
-    <td>
-      <a href="{{ url_for('categorias.desactivar_categoria', id=cat['id_categoria']) }}"
-         onclick="return confirm('¿Seguro que deseas desactivar esta categoría?')">
-        ❌
-      </a>
-    </td>
-  </tr>
-  {% endfor %}
-</tbody>
+                  {% for cat in categorias %}
+                  <tr>
+                    <td>
+                      <a href="{{ url_for('categorias.ver_categoria', id=cat['id_categoria']) }}">
+                        👁️
+                      </a>
+                    </td>
+                    <td>{{ cat['nombre_categoria'] }}</td>
+                    <td>
+                      <a href="{{ url_for('categorias.editar_categoria', id=cat['id_categoria']) }}">
+                        ✏️
+                      </a>
+                    </td>
+                    <td>
+                      <a href="{{ url_for('categorias.desactivar_categoria', id=cat['id_categoria']) }}"
+                        onclick="return confirm('¿Seguro que deseas desactivar esta categoría?')">
+                        ❌
+                      </a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
 
               </table>
             </div>
           </div>
         </div>
-<!-- 🔁 Paginador Bootstrap -->
-<nav aria-label="Paginador de categorías" class="mt-4">
-  <ul class="pagination justify-content-center">
-    {% if page > 1 %}
-      <li class="page-item">
-        <a class="page-link" href="{{ url_for('categorias.lista_categorias', page=page-1) }}">Anterior</a>
-      </li>
-    {% else %}
-      <li class="page-item disabled"><span class="page-link">Anterior</span></li>
-    {% endif %}
 
-    {% for p in range(1, total_pages + 1) %}
-      {% if p == page %}
-        <li class="page-item active"><span class="page-link">{{ p }}</span></li>
-      {% else %}
-        <li class="page-item">
-          <a class="page-link" href="{{ url_for('categorias.lista_categorias', page=p) }}">{{ p }}</a>
-        </li>
-      {% endif %}
-    {% endfor %}
+        <nav aria-label="Paginador de categorías" class="mt-4">
+          <ul class="pagination justify-content-center">
+            {% if page > 1 %}
+            <li class="page-item">
+              <a class="page-link" href="{{ url_for('categorias.lista_categorias', page=page-1) }}">Anterior</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled"><span class="page-link">Anterior</span></li>
+            {% endif %}
 
-    {% if page < total_pages %}
-      <li class="page-item">
-        <a class="page-link" href="{{ url_for('categorias.lista_categorias', page=page+1) }}">Siguiente</a>
-      </li>
-    {% else %}
-      <li class="page-item disabled"><span class="page-link">Siguiente</span></li>
-    {% endif %}
-  </ul>
-</nav>
+            {% for p in range(1, total_pages + 1) %}
+            {% if p == page %}
+            <li class="page-item active"><span class="page-link">{{ p }}</span></li>
+            {% else %}
+            <li class="page-item">
+              <a class="page-link" href="{{ url_for('categorias.lista_categorias', page=p) }}">{{ p }}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+
+            {% if page < total_pages %} <li class="page-item">
+              <a class="page-link" href="{{ url_for('categorias.lista_categorias', page=page+1) }}">Siguiente</a>
+              </li>
+              {% else %}
+              <li class="page-item disabled"><span class="page-link">Siguiente</span></li>
+              {% endif %}
+          </ul>
+        </nav>
 
 
-<div class="row mt-4">
-  <div class="col-12 text-center">
-    <a href="{{ url_for('admin.panel_admin') }}" class="btn btn-outline-secondary btn-lg">
-      ← Volver 
-    </a>
-  </div>
-</div>
-<div style="height: 150px;"></div>
+        <div class="row mt-4">
+          <div class="col-12 text-center">
+            <a href="{{ url_for('admin.panel_admin') }}" class="btn btn-outline-secondary btn-lg">
+              ← Volver
+            </a>
+          </div>
+        </div>
+        <div style="height: 150px;"></div>
   </main>
 
 

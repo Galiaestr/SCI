@@ -18,11 +18,11 @@ from routes.usuarios.usuarios_admin import usuarios_admin
 app = Flask(__name__)
 app.permanent_session_lifetime = timedelta(hours=2)
 
+UPLOAD_FOLDER = os.path.join(app.root_path, 'static', 'img')
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, 'static', 'img')
-app.config['WTF_CSRF_TIME_LIMIT'] = 7200  # 2 horas en segundos
+app.config['WTF_CSRF_TIME_LIMIT'] = 7200  # 2 horas
 app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024  # 2MB máximo
-
 
 app.secret_key = 'secret.galia.11'
 csrf = CSRFProtect(app)
@@ -34,7 +34,6 @@ app.register_blueprint(admin, url_prefix='/admin')
 app.register_blueprint(usuarios_admin, url_prefix='/admin/usuarios')
 
 
-# 🔒 Login manager
 login_manager = LoginManager(app)
 
 @login_manager.user_loader
@@ -74,7 +73,6 @@ def loguear():
         login_auth(loged_auth)
         return redirect(url_for("admin.panel_admin"))
     else:
-        # ❌ Fallo en login con categoría definida
         flash('❌ Nombre de usuario y/o contraseña incorrecta.', category='login_error')
 
         return redirect(url_for('login_page'))
@@ -91,10 +89,8 @@ def acceso_no_autorizado(error):
     flash("Necesitas iniciar sesión para acceder a esta página.", "warning")
     return redirect(url_for("login_page"))
 
-# 🧭 Mostrar mapa completo de rutas registradas
 for rule in app.url_map.iter_rules():
     print(f"{rule.endpoint:30} → {rule}")
-
 
 if __name__ == '__main__':
     app.register_error_handler(404, pagina_no_encontrada)

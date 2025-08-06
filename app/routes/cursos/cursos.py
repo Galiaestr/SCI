@@ -4,6 +4,7 @@ from werkzeug.utils import secure_filename
 from routes.utils.utils import get_db_connection
 from routes.utils.utils import dictify_cursor, dictify_one
 from routes.utils.utils import procesar_imagenes
+from routes.utils.helper import nombre_curso_duplicado
 from routes.registro.registro import RegistroForm
 from flask import current_app
 from flask import request
@@ -14,7 +15,6 @@ import psycopg2.extras
 
 cursos_publico = Blueprint('cursos_publico', __name__)
 
-# En cursos_admin.py
 cursos_admin = Blueprint('cursos_admin', __name__)
 
 
@@ -81,13 +81,13 @@ def verCursoPublico(id):
                            imagenes=imagenes,
                            id=id)
 
+
 @cursos_publico.route('/registro/<int:id>', methods=['GET', 'POST'])
 def registroCurso(id):
     form = RegistroForm()
     conn = get_db_connection()
     cursor = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
-    # 🛡️ Validar que el curso exista
     cursor.execute("""
         SELECT nombre_curso FROM cursos WHERE id_curso = %s AND activo = TRUE
     """, (id,))
@@ -97,9 +97,7 @@ def registroCurso(id):
         flash("⚠️ El curso no está disponible.", category="registro_ok")
         return redirect(url_for('cursos_publico.verCursosPublicos'))
 
-    # 📤 Procesar formulario
     if form.validate_on_submit():
-        # 🔍 Verificar duplicado
         cursor.execute("""
             SELECT * FROM usuario
             WHERE numero_telefonico = %s AND id_curso = %s
@@ -110,7 +108,6 @@ def registroCurso(id):
             conn.close()
             return redirect(url_for('cursos_publico.verCursoPublico', id=id))
 
-        # ✅ Insertar usuario nuevo
         cursor.execute("""
             INSERT INTO usuario (nombre_completo, numero_telefonico, comunidad, municipio, id_curso)
             VALUES (%s, %s, %s, %s, %s)
@@ -127,48 +124,50 @@ def registroCurso(id):
         flash("✅ Registro confirmado. ¡Gracias por inscribirte!", category="registro_ok")
         return redirect(url_for('cursos_publico.registroCurso', id=id))
 
-
-
-    # 🖼️ Renderizar vista GET
     conn.close()
     return render_template("cursosPub/registro.html", form=form, id=id)
 
-
 @cursos_admin.route('/cursos')
-@login_required
 def cursos_panel():
     page = request.args.get('page', 1, type=int)
-    per_page = 5
-    offset = (page - 1) * per_page
+    q = request.args.get('q', '', type=str).strip()
 
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    # Total de cursos para calcular páginas
-    cursor.execute("SELECT COUNT(*) FROM cursos WHERE activo = TRUE")
-    total = cursor.fetchone()[0]
-    total_pages = (total + per_page - 1) // per_page
+    if q:
+        cursor.execute("""
+            SELECT c.id_curso, c.nombre_curso, c.descripcion, cat.nombre_categoria,
+                   (SELECT COUNT(*) FROM usuario WHERE id_curso = c.id_curso) AS inscritos
+            FROM cursos c
+            JOIN categoria cat ON c.id_categoria = cat.id_categoria
+            WHERE LOWER(c.nombre_curso) LIKE LOWER(%s) AND c.activo = TRUE
+            ORDER BY c.id_curso DESC
+        """, (f"%{q}%",))
+        cursos = dictify_cursor(cursor)
+        total_pages = 1
+        page = 1
+    else:
+        cursor.execute("SELECT COUNT(*) FROM cursos WHERE activo = TRUE")
+        total = cursor.fetchone()[0]
+        per_page = 5
+        offset = (page - 1) * per_page
 
-    # Query paginada
-    cursor.execute("""
-        SELECT c.id_curso, c.nombre_curso, cat.nombre_categoria, c.descripcion,
-               (SELECT COUNT(*) FROM usuario u WHERE u.id_curso = c.id_curso) AS inscritos
-        FROM cursos c
-        JOIN categoria cat ON c.id_categoria = cat.id_categoria
-        WHERE c.activo = TRUE
-        ORDER BY c.id_curso ASC
-        LIMIT %s OFFSET %s
-    """, (per_page, offset))
+        cursor.execute("""
+            SELECT c.id_curso, c.nombre_curso, c.descripcion, cat.nombre_categoria,
+                   (SELECT COUNT(*) FROM usuario WHERE id_curso = c.id_curso) AS inscritos
+            FROM cursos c
+            JOIN categoria cat ON c.id_categoria = cat.id_categoria
+            WHERE c.activo = TRUE
+            ORDER BY c.id_curso DESC
+            LIMIT %s OFFSET %s
+        """, (per_page, offset))
+        cursos = dictify_cursor(cursor)
+        total_pages = (total + per_page - 1) // per_page
 
-    cursos = dictify_cursor(cursor)
     conn.close()
-
     return render_template('admin/cursos/cursos_panel.html',
-                           cursos=cursos,
-                           page=page,
-                           per_page=per_page,
-                           total_pages=total_pages)
-
+                           cursos=cursos, page=page, total_pages=total_pages, q=q)
 
 # 👁️ Ver curso (admin)
 @cursos_admin.route('/ver_admin/<int:id>')
@@ -177,7 +176,6 @@ def verCursoAdmin(id):
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    # 📘 Consulta del curso con JOIN
     cursor.execute("""
         SELECT c.id_curso, c.nombre_curso, c.descripcion, cat.nombre_categoria
         FROM cursos c
@@ -187,7 +185,6 @@ def verCursoAdmin(id):
     curso_raw = cursor.fetchone()
     curso = dictify_one(cursor, curso_raw) if curso_raw else {}
 
-    # 📸 Consulta de imágenes asociadas al curso
     cursor.execute("""
         SELECT foto FROM imagenes_curso
         WHERE id_curso = %s
@@ -195,7 +192,6 @@ def verCursoAdmin(id):
     """, (id,))
     imagenes_raw = dictify_cursor(cursor)
 
-    # 🧼 Validación física: solo envía imágenes que existen en disco
     IMG_FOLDER = os.path.join(current_app.root_path, 'static', 'img')
     imagenes_validas = []
 
@@ -212,7 +208,6 @@ def verCursoAdmin(id):
 
     return render_template('admin/cursos/ver_curso.html', curso=curso, imagenes=imagenes_validas)
 
-# 🆕 Crear curso
 @cursos_admin.route('/crear', methods=['GET', 'POST'])
 @login_required
 def crearCurso():
@@ -223,8 +218,13 @@ def crearCurso():
         nombre = request.form['nombre']
         categoria = request.form['categoria']
         descripcion = request.form['descripcion']
-        imagenes = request.files.getlist('imagenes[]') 
 
+        if nombre_curso_duplicado(cursor, nombre):
+            conn.close()
+            flash("⚠️ Ya existe un curso con ese nombre. Usa otro nombre único.", "admin_error")
+            return redirect(url_for('cursos_admin.crearCurso'))
+
+        imagenes = request.files.getlist('imagenes[]')
         filenames = procesar_imagenes(imagenes, current_app.config['UPLOAD_FOLDER'])
 
         cursor.execute("""
@@ -240,10 +240,9 @@ def crearCurso():
                 VALUES (%s, %s);
             """, (id_curso, fname))
 
-
         conn.commit()
         conn.close()
-        flash("✅ Curso creado con imágenes correctamente.", category="admin_ok")
+        flash("✅ Curso creado con imágenes correctamente.", "admin_ok")
         return redirect(url_for('cursos_admin.cursos_panel'))
 
     cursor.execute("SELECT id_categoria, nombre_categoria FROM categoria WHERE activo = TRUE")
@@ -251,7 +250,6 @@ def crearCurso():
     conn.close()
     return render_template('admin/cursos/crear_curso.html', categorias=categorias)
 
-# ✏️ Editar curso
 @cursos_admin.route('/editar/<int:id>', methods=['GET', 'POST'])
 @login_required
 def editarCurso(id):
@@ -279,9 +277,13 @@ def editarCurso(id):
         nombre = request.form['nombre']
         categoria = request.form['categoria']
         descripcion = request.form['descripcion']
-        nuevas_imagenes = request.files.getlist('imagenes[]')  # ✅ clave correcta
+        nuevas_imagenes = request.files.getlist('imagenes[]')
         print("Archivos recibidos:", [f.filename for f in nuevas_imagenes])
 
+        if nombre_curso_duplicado(cursor, nombre, id_excluir=id):
+            conn.close()
+            flash("⚠️ Ya existe otro curso con ese nombre. Usa uno distinto.", "admin_error")
+            return redirect(url_for('cursos_admin.editarCurso', id=id))
 
         cursor.execute("""
             UPDATE cursos
@@ -299,12 +301,13 @@ def editarCurso(id):
 
         conn.commit()
         conn.close()
-        flash("✅ Curso actualizado con nuevas imágenes." , category="admin_ok")
+        flash("✅ Curso actualizado correctamente.", "admin_ok")
         return redirect(url_for('cursos_admin.cursos_panel'))
 
     conn.close()
     return render_template('admin/cursos/editar_curso.html',
                            curso=curso, categorias=categorias, imagenes=imagenes)
+
 
 @cursos_admin.route('/upload-imagenes/<int:id>', methods=['POST'])
 @login_required
@@ -326,8 +329,6 @@ def uploadImagenesCurso(id):
 
     return jsonify({'status': 'ok', 'guardadas': filenames})
 
-
-# 🔄 Desactivar curso
 @cursos_admin.route('/desactivar/<int:id>')
 @login_required
 def desactivarCurso(id):
@@ -341,7 +342,6 @@ def desactivarCurso(id):
     flash("🚫 Curso desactivado correctamente.", category="admin_ok")
     return redirect(url_for('cursos_admin.cursos_panel'))
 
-# ✅ Restaurar curso
 @cursos_admin.route('/activar/<int:id>')
 @login_required
 def activarCurso(id):
@@ -349,14 +349,12 @@ def activarCurso(id):
     cursor = conn.cursor()
 
     try:
-        # ✅ Activar el curso
         cursor.execute("""
             UPDATE cursos
             SET activo = TRUE
             WHERE id_curso = %s
         """, (id,))
 
-        # 🗑️ Eliminar usuarios inscritos anteriormente
         cursor.execute("""
             DELETE FROM usuario
             WHERE id_curso = %s
@@ -374,8 +372,6 @@ def activarCurso(id):
 
     return redirect(url_for('cursos_admin.papeleraCurso'))
 
-
-# 🗂️ Ver cursos desactivados
 @cursos_admin.route('/papelera')
 @login_required
 def papeleraCurso():
@@ -392,7 +388,6 @@ def papeleraCurso():
     conn.close()
     return render_template('admin/cursos/papelera_curso.html', cursos=cursos_desactivados)
 
-# 🗑️ Eliminar imagen individual
 @cursos_admin.route('/eliminar_imagen/<int:id>', methods=['POST'])
 @login_required
 def eliminarImagenCurso(id):
@@ -430,20 +425,22 @@ def resultados():
     conn = get_db_connection()
     cur = conn.cursor()
 
-    # Búsqueda en cursos
     cur.execute("""
-        SELECT id_curso, nombre_curso
-        FROM cursos
-        WHERE activo = TRUE AND nombre_curso ILIKE %s
-    """, (f'%{consulta}%',))
+    SELECT id_curso, nombre_curso
+    FROM cursos
+    WHERE activo = TRUE AND nombre_curso ILIKE %s
+    ORDER BY POSITION(%s IN nombre_curso)
+""", (f'%{consulta}%', consulta))
+
+
     cursos = cur.fetchall()
 
-    # Búsqueda en categorías
     cur.execute("""
-        SELECT id_categoria, nombre_categoria
-        FROM categoria
-        WHERE nombre_categoria ILIKE %s
-    """, (f'%{consulta}%',))
+    SELECT id_categoria, nombre_categoria
+    FROM categoria
+    WHERE nombre_categoria ILIKE %s
+""", (f'{consulta}%',))
+
     categorias = cur.fetchall()
 
     conn.close()

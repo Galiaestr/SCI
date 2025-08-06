@@ -10,12 +10,10 @@ def ver_inscritos(id_curso):
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    # Paginación
     pagina = request.args.get('pagina', 1, type=int)
     por_pagina = 5
     offset = (pagina - 1) * por_pagina
 
-    # Consulta de inscritos
     cursor.execute("""
     SELECT nombre_completo, numero_telefonico, comunidad, municipio
     FROM usuario
@@ -25,7 +23,6 @@ def ver_inscritos(id_curso):
 
     inscritos = dictify_cursor(cursor)
 
-    # Total de inscritos para el paginador
     cursor.execute("SELECT COUNT(*) FROM usuario WHERE id_curso = %s", (id_curso,))
     total = cursor.fetchone()[0]
 

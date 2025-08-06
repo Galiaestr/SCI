@@ -7,7 +7,6 @@ from routes.utils.utils import get_db_connection
 from psycopg2.extras import RealDictCursor
 
 
-# Formulario con CSRF integrado
 class CategoriaForm(FlaskForm):
     nombre_categoria = StringField('Nombre', validators=[DataRequired()])
     submit = SubmitField('Guardar')

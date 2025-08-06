@@ -16,7 +16,7 @@ class ModuleAuth:
             row = cur.fetchone()
 
             if row and Auth.check_password(row[2], auth.contrasenia):
-                return Auth(row[0], row[1], row[2])  # La contraseña está validada
+                return Auth(row[0], row[1], row[2])  
             else:
                 return None
 

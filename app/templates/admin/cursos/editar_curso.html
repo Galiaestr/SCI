@@ -19,12 +19,12 @@
                 <div class="logo-and-text">
                     <img src="{{ url_for('static', filename='images/Icatlax-logo.png') }}" alt="ICATLAX"
                         class="img-fluid icatlax-symbol-logo">
-                    </div>
+                </div>
             </div>
         </div>
     </header>
 
-   {% include 'partials/navbar.html' %}
+    {% include 'partials/navbar.html' %}
 
 
     <header class="bg-light border-bottom py-2 mb-3">
@@ -35,8 +35,24 @@
     </header>
 
     <main class="container py-4 flex-grow-1">
-        <h2 class="category-title mb-0"> Editar Curso</h2> 
-        <p> <br></p>
+
+        {% with mensajes = get_flashed_messages(with_categories=true) %}
+        {% if mensajes %}
+        {% for categoria, mensaje in mensajes %}
+        <div class="alert alert-{{ 'danger' if categoria == 'admin_error' else 'success' }} alert-dismissible fade show"
+            role="alert">
+            {{ mensaje }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <h2 class="category-title mb-0"> Editar Curso</h2>
+        <p><br></p>
+
         <div class="mb-4">
             <h5>🖼️ Imágenes actuales ({{ imagenes|length }})</h5>
             <div class="d-flex flex-wrap gap-3">
@@ -60,14 +76,16 @@
 
             <div class="form-group">
                 <label for="nombre"> Nombre del Curso:</label>
-                <input type="text" id="nombre" name="nombre" class="form-control" value="{{ curso['nombre_curso'] }}" required>
+                <input type="text" id="nombre" name="nombre" class="form-control" value="{{ curso['nombre_curso'] }}"
+                    required>
             </div>
 
             <div class="form-group">
                 <label for="categoria"> Categoría:</label>
                 <select name="categoria" id="categoria" class="form-control" required>
                     {% for cat in categorias %}
-                    <option value="{{ cat['id_categoria'] }}" {% if cat['id_categoria']==curso['id_categoria'] %}selected{% endif %}>
+                    <option value="{{ cat['id_categoria'] }}" {% if cat['id_categoria']==curso['id_categoria']
+                        %}selected{% endif %}>
                         {{ cat['nombre_categoria'] }}
                     </option>
                     {% endfor %}
@@ -76,15 +94,14 @@
 
             <div class="form-group">
                 <label for="descripcion"> Descripción:</label>
-                <textarea name="descripcion" id="descripcion" class="form-control" rows="4" required>{{ curso['descripcion'] }}</textarea>
+                <textarea name="descripcion" id="descripcion" class="form-control" rows="4"
+                    required>{{ curso['descripcion'] }}</textarea>
             </div>
 
             <div class="form-group">
                 <label for="imagenes">➕ Agregar nuevas imágenes</label>
                 <input type="file" id="imagenes" name="imagenes[]" multiple accept="image/*" class="form-control-file">
-                <small class="form-text text-muted">
-                    <small class="form-text text-muted">Formatos permitidos: JPG, PNG, WEBP</small> <p></p>
-                </small>
+                <small class="form-text text-muted">Formatos permitidos: JPG, PNG, WEBP</small>
             </div>
 
             <div id="preview-container" class="d-flex flex-wrap mt-3"></div>
@@ -105,12 +122,16 @@
         <p class="mb-1">Email: presidencia@xiloxochitla.mx</p>
         <p class="mb-0">© 2024-2025 Xiloxochitla</p>
     </footer>
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Tu código JavaScript original aquí
+
         const input = document.getElementById('imagenes');
         const preview = document.getElementById('preview-container');
         const guardarBtn = document.getElementById('btn-guardar'); // Asegúrate que el ID del botón es 'btn-guardar'
@@ -165,7 +186,6 @@
                 }
             });
 
-            // Limpiar input para permitir nuevas selecciones posteriores
             input.value = '';
         });
 
@@ -173,14 +193,12 @@
             const form = document.getElementById('form-curso');
             const formData = new FormData(form);
 
-            // Validación mínima
             if (!form.nombre.value.trim() || !form.descripcion.value.trim()) {
                 alert('⚠️ Por favor llena todos los campos requeridos.');
                 return;
             }
 
-            // Loader visual
-            if (guardarBtn) { // Verificar si guardarBtn existe antes de intentar acceder a sus propiedades
+            if (guardarBtn) { 
                 guardarBtn.disabled = true;
                 guardarBtn.innerText = 'Guardando...';
             }
@@ -190,24 +208,24 @@
             });
 
             fetch(`/admin/cursos/editar/${id_curso}`, {
-                    method: 'POST',
-                    body: formData
-                })
+                method: 'POST',
+                body: formData
+            })
                 .then(res => {
                     if (res.redirected) {
                         window.location.href = res.url;
                     } else {
-                        if (guardarBtn) { // Verificar nuevamente
+                        if (guardarBtn) { 
                             guardarBtn.disabled = false;
-                            guardarBtn.innerText = '💾 Guardar curso con imágenes';
+                            guardarBtn.innerText = 'Guardar';
                         }
                         alert('⚠️ La actualización no pudo completarse.');
                     }
                 })
                 .catch(err => {
-                    if (guardarBtn) { // Verificar nuevamente
+                    if (guardarBtn) { 
                         guardarBtn.disabled = false;
-                        guardarBtn.innerText = '💾 Guardar curso con imágenes';
+                        guardarBtn.innerText = ' Guardar';
                     }
                     alert('⚠️ Error: ' + err);
                 });
@@ -219,13 +237,13 @@
             if (!continuar) return;
 
             fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRFToken': csrfToken,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({})
-                })
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({})
+            })
                 .then(response => {
                     if (response.ok) {
                         elemento.parentElement.remove();

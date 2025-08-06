@@ -45,7 +45,6 @@
         </div>
       </div>
 
-      <!-- Botones alineados horizontalmente -->
       <div class="row mb-4 align-items-center separador-header">
         <div class="col-auto">
           <a href="{{ url_for('cursos_admin.crearCurso') }}" class="btn btn-secondary">
@@ -59,90 +58,96 @@
         </div>
       </div>
       {% if cursos %}
-<div class="table-container-wrapper mb-5">
-  <div class="card shadow-sm table-responsive">
-    <table class="table table-bordered table-hover mb-0">
-      <thead class="thead-light">
-                  <tr>
-                    <th>Ver</th>
-                    <th>Nombre</th>
-                    <th>Categoría</th>
-                    <th>Descripción</th>
-                    <th>Usuarios</th>
-                    <th>Editar</th>
-                    <th>Desactivar</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for curso in cursos %}
-                  <tr>
-                    <td><a href="{{ url_for('cursos_admin.verCursoAdmin', id=curso['id_curso']) }}">👁️</a></td>
-                    <td>{{ curso['nombre_curso'] }}</td>
-                    <td>{{ curso['nombre_categoria'] }}</td>
-                    <td>{{ curso['descripcion'] }}</td>
-                    <td>
-                      <strong>{{ curso['inscritos'] }}</strong>
-                      <a href="{{ url_for('usuarios_admin.ver_inscritos', id_curso=curso['id_curso']) }}"
-                        title="Ver inscritos">👥</a>
-                    </td>
-                    <td><a href="{{ url_for('cursos_admin.editarCurso', id=curso['id_curso']) }}">✏️</a></td>
-                    <td>
-                      <a href="{{ url_for('cursos_admin.desactivarCurso', id=curso['id_curso']) }}"
-                        onclick="return confirm('¿Estás seguro de que quieres desactivar este curso?')">❌</a>
-                    </td>
-                  </tr>
-                  {% endfor %}
-      </tbody>
-    </table>
-  </div>
-</div>
+      <form method="GET" action="{{ url_for('cursos_admin.cursos_panel') }}" class="input-group mb-3">
+        <input type="text" name="q" class="form-control" placeholder="🔍 Buscar curso por nombre..." value="{{ q }}">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+        </div>
+      </form>
 
-<!-- 🔁 Paginador Bootstrap -->
-<nav aria-label="Paginador de cursos" class="mt-4">
-  <ul class="pagination justify-content-center">
-    {% if page > 1 %}
-    <li class="page-item">
-      <a class="page-link" href="{{ url_for('cursos_admin.cursos_panel', page=page-1) }}">Anterior</a>
-    </li>
-    {% else %}
-    <li class="page-item disabled"><span class="page-link">Anterior</span></li>
-    {% endif %}
 
-    {% for p in range(1, total_pages + 1) %}
-      {% if p == page %}
-      <li class="page-item active"><span class="page-link">{{ p }}</span></li>
+      <div class="table-container-wrapper mb-5">
+        <div class="card shadow-sm table-responsive">
+          <table id="tabla-cursos" class="table table-bordered table-hover mb-0">
+            <thead class="thead-light">
+              <tr>
+                <th>Ver</th>
+                <th>Nombre</th>
+                <th>Categoría</th>
+                <th>Descripción</th>
+                <th>Usuarios</th>
+                <th>Editar</th>
+                <th>Desactivar</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for curso in cursos %}
+              <tr>
+                <td><a href="{{ url_for('cursos_admin.verCursoAdmin', id=curso['id_curso']) }}">👁️</a></td>
+                <td class="col-nombre">{{ curso['nombre_curso'] }}</td>
+                <td>{{ curso['nombre_categoria'] }}</td>
+                <td>{{ curso['descripcion'] }}</td>
+                <td>
+                  <strong>{{ curso['inscritos'] }}</strong>
+                  <a href="{{ url_for('usuarios_admin.ver_inscritos', id_curso=curso['id_curso']) }}"
+                    title="Ver inscritos">👥</a>
+                </td>
+                <td><a href="{{ url_for('cursos_admin.editarCurso', id=curso['id_curso']) }}">✏️</a></td>
+                <td>
+                  <a href="{{ url_for('cursos_admin.desactivarCurso', id=curso['id_curso']) }}"
+                    onclick="return confirm('¿Estás seguro de que quieres desactivar este curso?')">❌</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <nav aria-label="Paginador de cursos" class="mt-4">
+        <ul class="pagination justify-content-center">
+          {% if page > 1 %}
+          <li class="page-item">
+            <a class="page-link" href="{{ url_for('cursos_admin.cursos_panel', page=page-1) }}">Anterior</a>
+          </li>
+          {% else %}
+          <li class="page-item disabled"><span class="page-link">Anterior</span></li>
+          {% endif %}
+
+          {% for p in range(1, total_pages + 1) %}
+          {% if p == page %}
+          <li class="page-item active"><span class="page-link">{{ p }}</span></li>
+          {% else %}
+          <li class="page-item"><a class="page-link" href="{{ url_for('cursos_admin.cursos_panel', page=p) }}">{{ p
+              }}</a>
+
+            {% endif %}
+            {% endfor %}
+
+            {% if page < total_pages %} <li class="page-item">
+              <a class="page-link" href="{{ url_for('cursos_admin.cursos_panel', page=page+1) }}">Siguiente</a>
+          </li>
+          {% else %}
+          <li class="page-item disabled"><span class="page-link">Siguiente</span></li>
+          {% endif %}
+        </ul>
+      </nav>
+
       {% else %}
-      <li class="page-item"><a class="page-link" href="{{ url_for('cursos_admin.cursos_panel', page=p) }}">{{ p }}</a>
-
+      <div class="alert alert-info text-center" role="alert" style="max-width: 600px; margin: 0 auto 2rem auto;">
+        <p class="mb-0">No hay cursos registrados actualmente.</p>
+      </div>
       {% endif %}
-    {% endfor %}
+      <div class="row mt-4">
+        <div class="col-12 text-center">
+          <a href="{{ url_for('admin.panel_admin') }}" class="btn btn-outline-secondary btn-lg">
+            ← Volver
+          </a>
+        </div>
+      </div>
+      <div style="height: 110px;"></div>
 
-    {% if page < total_pages %}
-    <li class="page-item">
-      <a class="page-link" href="{{ url_for('cursos_admin.cursos_panel', page=page+1) }}">Siguiente</a>
-    </li>
-    {% else %}
-    <li class="page-item disabled"><span class="page-link">Siguiente</span></li>
-    {% endif %}
-  </ul>
-</nav>
-
-{% else %}
-<div class="alert alert-info text-center" role="alert" style="max-width: 600px; margin: 0 auto 2rem auto;">
-  <p class="mb-0">No hay cursos registrados actualmente.</p>
-</div>
-{% endif %}
-<div class="row mt-4">
-  <div class="col-12 text-center">
-    <a href="{{ url_for('admin.panel_admin') }}" class="btn btn-outline-secondary btn-lg">
-      ← Volver 
-    </a>
-  </div>
-</div>
-<div style="height: 110px;"></div>
-
-</main> <!-- ← Asegura que este cierre venga DESPUÉS del botón -->
-
+  </main> 
 
   <footer class="container-fluid footer-area py-4 text-center">
     <p class="mb-1">Módulo de Capacitación ICATLAX-Xiloxochitla</p>
@@ -160,6 +165,22 @@
     crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    function filtrarCursos() {
+      const filtro = document.getElementById('buscador-cursos').value.toLowerCase();
+      const filas = document.querySelectorAll('#tabla-cursos tbody tr');
+
+      filas.forEach(fila => {
+        const nombre = fila.querySelector('.col-nombre')?.textContent.toLowerCase() || '';
+        fila.style.display = nombre.includes(filtro) ? '' : 'none';
+      });
+    }
+  </script>
+  <script>
+    document.getElementById('buscador-cursos').addEventListener('keyup', filtrarCursos);
+  </script>
+
 </body>
 
 </html>
